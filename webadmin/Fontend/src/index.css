@@ -23,12 +23,11 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  /* display: flex; */
+  margin: 0 0 auto;
+  
   place-items: center;
-  /* background-color: #213547; */
-  min-width: 100%; /* 100% ของความกว้างของ viewport */
-  min-height: 100%; /* 100% ของความสูงของ viewport */
+  width: auto;
+  background-color: #b67d7d;
 
 }
 

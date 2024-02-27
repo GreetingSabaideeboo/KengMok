@@ -6,7 +6,6 @@ function Footer(){
         <a className="endtext">
           Noppadon and Pachara
         </a>
-        <button onClick={check}>check</button>
       </p>
       </div>
     )

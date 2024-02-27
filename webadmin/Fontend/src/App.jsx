@@ -15,7 +15,6 @@ function App() {
   return (
     <div className="main-display">
       <HashRouter>
-
         <Navbar />
         <Routes>
           <Route path="/search" element={<Search />} />
@@ -28,7 +27,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/Addcrop" element={<Addcrop />} />
         </Routes>
-        {/* <Footer/> */}
+        <Footer/>
       </HashRouter>
     </div>
   );

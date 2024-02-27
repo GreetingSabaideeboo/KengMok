@@ -2,7 +2,7 @@ import * as React from "react";
 import Axios from "axios";
 import { useState } from "react";
 import { useNavigate  } from "react-router-dom";
-// import "../Styles/login.css";
+import "./login.css";
 
 export default function Sing_up() {
   const [username, setusername] = useState("");
@@ -32,28 +32,25 @@ export default function Sing_up() {
 
   return (
     <div>
+      <div className="topic">LOGIN</div>
       <body className="box">
-        <div >
-          <form className="loginbox"></form>
-          <div className="topic">LOGIN</div>
-          <div className="text">Username : </div>
-          <input type="text" placeholder="Enter Username " onChange={(event) => {setusername(event.target.value);}}/>
-
-          <div className="password">Password : </div>
-          <input
-            type="password"
-            placeholder="Enter password"
-            onChange={(event) => {
-              setpassword(event.target.value);
-            }}
-          />
-
-         
-            <button onClick={requst_login} > login</button>
+        <div className="loginbackground">
+          {/* <form className="loginbox"></form> */}
           
-          <p >
+          <div className="wel">Welcom Back!</div>
+          <div className="ltc">Login to continue</div>
+          
+          {/* <div className="text">Username : </div> */}
+          <input type="text" placeholder="USERNAME" onChange={(event) => {setusername(event.target.value);}}/>
+
+          {/* <div className="password">Password : </div> */}
+          <input type="password" placeholder="PASSWORD" onChange={(event) => {setpassword(event.target.value);}}/>
+
+            <button className="butlog"onClick={requst_login} > login</button>
+          
+          {/* <p >
             Not registered? <a href="Register">Create an account</a>
-          </p>
+          </p> */}
         
         </div> 
         </body>

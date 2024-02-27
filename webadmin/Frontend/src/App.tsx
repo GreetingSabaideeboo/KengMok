@@ -7,7 +7,7 @@ import Search from "./components/Search";
 import Report from "./components/Report";
 import Manage from "./components/Manage";
 import Register from "./components/Register";
-import Add from "./components/Add";
+import Add from "../../Fontend/src/pages/Add";
 import Addcrop from "./components/Addcrop";
 // import logo from "../assests/img/logo.svg"
 function App() {

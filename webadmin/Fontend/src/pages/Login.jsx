@@ -2,6 +2,7 @@ import * as React from "react";
 import Axios from "axios";
 import { useState } from "react";
 import { useNavigate  } from "react-router-dom";
+import "../css/login.css";
 
 
 export default function Sing_up() {
@@ -46,7 +47,7 @@ export default function Sing_up() {
           {/* <div className="password">Password : </div> */}
           <input type="password" placeholder="PASSWORD" onChange={(event) => {setpassword(event.target.value);}}/>
 
-            <button className="butlog"onClick={requst_login} > login</button>
+            <button className="butlog"onClick={requst_login} > Login</button>
           
           {/* <p >
             Not registered? <a href="Register">Create an account</a>

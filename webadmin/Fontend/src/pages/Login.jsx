@@ -26,8 +26,6 @@ export default function Sing_up() {
         sessionStorage.setItem("login_status","false");
         sessionStorage.setItem("role","null");
       }
-      
-      
     }),
   ];
 

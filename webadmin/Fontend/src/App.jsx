@@ -15,19 +15,31 @@ function App() {
   return (
     <div className="main-display">
       <HashRouter>
-        <Navbar />
         <Routes>
-          <Route path="/search" element={<Search />} />
-          <Route path="/manage" element={<Manage />} />
-          <Route path="/report" element={<Report />} />
-          <Route path="/login" element={<Login />} />
+          {/* Specify routes without Navbar */}
+          <Route path="/login/*" element={<Login />} />
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/Add" element={<Add />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/Addcrop" element={<Addcrop />} />
+
+          {/* Specify routes with Navbar */}
+          <Route
+            path="/*"
+            element={
+              <>
+                <Navbar />
+                <Routes>
+                  <Route path="/search" element={<Search />} />
+                  <Route path="/manage" element={<Manage />} />
+                  <Route path="/report" element={<Report />} />
+                  <Route path="/add" element={<Addcrop />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/addcrop" element={<Addcrop />} />
+                </Routes>
+                <Footer />
+              </>
+            }
+          />
         </Routes>
-        <Footer/>
       </HashRouter>
     </div>
   );

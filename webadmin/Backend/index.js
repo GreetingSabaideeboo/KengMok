@@ -56,7 +56,6 @@ app.post('/login', (req, res) => {
         }
     });
 });
-
 app.post('/add', (req, res) => {
     const base64String = req.body.image;
 
@@ -68,11 +67,14 @@ app.post('/add', (req, res) => {
     const { firstname, lastname, gender, birth } = req.body;
 
     // Generate a unique filename (you may need a more robust solution)
-    // const filename = `image_${Date.now()}.png`;
     const filename = `image_${firstname}${lastname}.png`;
 
+    // Create folder if it doesn't exist
+    const folderPath = path.join(__dirname, 'uploads', `${firstname}${lastname}`);
+    fs.mkdirSync(folderPath, { recursive: true });  // recursive: true creates parent directories if they don't exist
+
     // Specify the path to save the image
-    const filePath = path.join(__dirname, 'uploads', filename);
+    const filePath = path.join(folderPath, filename);
 
     // Save the image to the server
     fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
@@ -99,6 +101,7 @@ app.post('/add', (req, res) => {
     });
 });
 
+
 app.get('/peopleList', (req, res) => {
     
     db.query('SELECT * FROM `User`', (error, results, fields) => {
@@ -110,6 +113,15 @@ app.get('/peopleList', (req, res) => {
         }
     });
 });
+
+
+
+app.post('/check', (req, res) => {
+    const ch=req.body
+    res.send(ch);
+});
+
+
 
 const port = 5001;
 app.listen(port, () => {

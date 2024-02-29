@@ -43,16 +43,7 @@ function Add() {
 
   return (
     <div>
-      <input type="text" placeholder="Enter Firstname " onChange={(event) => {setFirstname(event.target.value);}}/>
-      <input type="text" placeholder="Enter Lastname " onChange={(event) => {setLastname(event.target.value);}}/>
-      <select value={Gender} onChange={(event) => setGender(event.target.value)}>
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-      <input type="Date" placeholder="Enter Birthday" onChange={(event) => {setBirth(event.target.value);}}/>
-      <input type="file" onChange={handleFileChange} />//
-      <button onClick={handleFileUpload}>Add Member</button>
+     
     </div>
   );
 }

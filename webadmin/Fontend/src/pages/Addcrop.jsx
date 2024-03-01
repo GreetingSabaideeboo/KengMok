@@ -92,6 +92,7 @@ const Addcrop = () => {
   // }
   const savepic = async () => {
     try {
+      console.log("active")
       const { data } = await axios.post('http://localhost:5001/add', { 
         image: croppedImage,
         firstname:Firstname,
@@ -99,6 +100,7 @@ const Addcrop = () => {
         gender:Gender,
         birth:Birth
     })
+    console.log("activeee")
     window.alert('Add member sussessfully');
     navigate('/manage');
     } catch (error) {

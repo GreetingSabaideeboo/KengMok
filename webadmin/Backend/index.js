@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const mime = require('mime-types');
 
 // import * as express from 'express';
 const jwt = require('jsonwebtoken');
@@ -12,7 +13,7 @@ const secret = 'AI-Project';
 
 app.use(cors());
 // app.use(express.json());
-app.use(express.json({ limit: '5mb' }));
+app.use(express.json({ limit: '500mb' }));
 
 const db = mysql.createConnection({
     user: "root",
@@ -45,7 +46,7 @@ app.post('/login', (req, res) => {
             if (results.length > 0) {
                 console.log(results);
                 if (results[0].A_Password === password) {
-                    
+
                     res.send("Success"
                     );
                 } else {
@@ -67,45 +68,48 @@ app.post('/add', (req, res) => {
 
     const imageBuffer = Buffer.from(base64String.split(',')[1], 'base64');
     const { firstname, lastname, gender, birth } = req.body;
+    db.query(
+        'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`) VALUES (?,?,?,?)',
+        [firstname, lastname, birth, gender],
+        (error, results, fields) => {
+            if (error) {
+                console.error('Error executing SQL query:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            } else {
+                // console.log('User data inserted successfully:', results.insertId); 
+                // res.json({ message: 'Image and user data uploaded successfully' });
+                // Generate a unique filename (you may need a more robust solution)
+                const timestamp = Date.now();
+                const filename = `image_${results.insertId}_${timestamp}.jpg`;
 
-    // Generate a unique filename (you may need a more robust solution)
-    const filename = `image_${firstname}${lastname}.png`;
+                // Create folder if it doesn't exist
+                const folderPath = path.join(__dirname, 'uploads', `${results.insertId}`);
+                fs.mkdirSync(folderPath, { recursive: true });  // recursive: true creates parent directories if they don't exist
 
-    // Create folder if it doesn't exist
-    const folderPath = path.join(__dirname, 'uploads', `${firstname}${lastname}`);
-    fs.mkdirSync(folderPath, { recursive: true });  // recursive: true creates parent directories if they don't exist
+                // Specify the path to save the image
+                const filePath = path.join(folderPath, filename);
 
-    // Specify the path to save the image
-    const filePath = path.join(folderPath, filename);
-
-    // Save the image to the server
-    fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
-        if (err) {
-            console.error('Error saving image:', err);
-            res.status(500).json({ error: 'Failed to save image' });
-        } else {
-            console.log('Image saved successfully:', filePath);
-            
-            db.query(
-                'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Picture`, `U_Birthday`, `U_Gender`) VALUES (?,?,?,?,?)',
-                [firstname, lastname, filename, birth, gender],
-                (error, results, fields) => {
-                    if (error) {
-                        console.error('Error executing SQL query:', error);
-                        res.status(500).json({ error: 'Internal Server Error' });
+                // Save the image to the server
+                fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
+                    if (err) {
+                        console.error('Error saving image:', err);
+                        res.status(500).json({ error: 'Failed to save image' });
                     } else {
-                        console.log('User data inserted successfully:', results);
-                        res.json({ message: 'Image and user data uploaded successfully' });
+                        console.log('Image saved successfully:', filePath);
+                        res.status(200).send("suscess")
+
+
                     }
-                }
-            );
+                });
+            }
         }
-    });
+    );
+
 });
 
 
 app.get('/peopleList', (req, res) => {
-    
+
     db.query('SELECT * FROM `User`', (error, results, fields) => {
         if (error) {
             console.error('Error executing SQL query:', error);
@@ -125,19 +129,19 @@ app.post('/files', (req, res) => {
 
 });
 
-app.post('/queryPerson',(req,res)=>{
-    
+app.post('/queryPerson', (req, res) => {
+
 })
 app.post('/savePicKios', (req, res) => {
     const image = req.body.image;
     const face = req.body.face;
     // console.log(image);
-    
+
     if (!image && !face) {
         return res.status(400).json({ error: 'Image data is required' });
     }
 
-    
+
     const timestamp = Date.now();
     const filename = `image_${timestamp}.jpg`;
     const imagePath = path.join(__dirname, 'eventPicture', filename); // Use path.join to create a full file path
@@ -166,6 +170,34 @@ app.post('/savePicKios', (req, res) => {
         }
     });
 });
+
+
+app.get('/getPicture', (req, res) => {
+    const uploadsPath = path.join(__dirname, 'uploads');
+    try {
+        // Read the contents of the 'uploads' directory
+        const folders = fs.readdirSync(uploadsPath, { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory())
+            .map(dirent => {
+                const folderPath = path.join(uploadsPath, dirent.name);
+                const images = fs.readdirSync(folderPath)
+                    .filter(file => file.endsWith('.jpg'))
+                    .map(image => {
+                        const imagePath = path.join(folderPath, image);
+                        const imageBase64 = fs.readFileSync(imagePath, 'base64');
+                        const mimeType = mime.lookup(imagePath);
+                        return { imageName: image, imageBase64, mimeType };
+                    });
+                return { folderName: dirent.name, images };
+            });
+
+        res.json({ folders });
+    } catch (error) {
+        console.error('Error reading folders:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 const port = 5001;
 app.listen(port, () => {

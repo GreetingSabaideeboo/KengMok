@@ -21,13 +21,11 @@ while True:
             with open("./face.jpg", "rb") as image_file:
                 faceEncoded_string = base64.b64encode(image_file.read())
             try:
+                #for loop
                 Ver_result = DeepFace.verify(ch, face, model_name="VGG-Face", enforce_detection=False)
                 print(Ver_result)
-                
-                
                 environmentB64_string = environmentEncoded_string.decode()
                 faceB64_string = faceEncoded_string.decode()
-                # print(environmentB64_string)
                 url = 'http://localhost:5001/savePicKios'
                 myobj = {'image': environmentB64_string,
                          'face':faceB64_string}
@@ -36,12 +34,8 @@ while True:
                 x = requests.post(url, json = myobj)
 
                 print(x.text)
-                # print(environmentB64_string)
+               
                 time.sleep(5)
-                # if response.status_code == 200:
-                #     print('Image sent successfully!')
-                # else:
-                #     print(f'Failed to send image. Status code: {response.status_code}')
             except Exception as e:
                 # print(f"Error: {e}")
                 pass

@@ -10,10 +10,12 @@ import Register from "./pages/Register";
 import Add from "./pages/Add";
 import Addcrop from "./pages/Addcrop";
 import Footer from "./pages/Footer";
+import Test from "./pages/Test";
 
 function App() {
   return (
     <div className="main-display">
+      <Test/>
       <HashRouter>
         <Routes>
           {/* Specify routes without Navbar */}
@@ -34,6 +36,7 @@ function App() {
                   <Route path="/add" element={<Addcrop />} />
                   <Route path="/home" element={<Home />} />
                   <Route path="/addcrop" element={<Addcrop />} />
+               
                 </Routes>
                 <Footer />
               </>

@@ -14,27 +14,29 @@ while True:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(200, 200))
         with open("./pic.jpg", "rb") as image_file:
-            encoded_string = base64.b64encode(image_file.read())
+            environmentEncoded_string = base64.b64encode(image_file.read())
         for (x, y, w, h) in faces:
             face = frame[y:y + h, x:x + w]
+            cv2.imwrite('face.jpg',face)
+            with open("./face.jpg", "rb") as image_file:
+                faceEncoded_string = base64.b64encode(image_file.read())
             try:
                 Ver_result = DeepFace.verify(ch, face, model_name="VGG-Face", enforce_detection=False)
                 print(Ver_result)
                 
-                # Send image to server using requests
-                # buffer = cv2.imencode('.jpg', frame)
-                # print(frame)
-                # b64_bytes = base64.b64encode(frame)
-                b64_string = encoded_string.decode()
-                print(b64_string)
+                
+                environmentB64_string = environmentEncoded_string.decode()
+                faceB64_string = faceEncoded_string.decode()
+                # print(environmentB64_string)
                 url = 'http://localhost:5001/savePicKios'
-                myobj = {'image': b64_string}
+                myobj = {'image': environmentB64_string,
+                         'face':faceB64_string}
 
 
                 x = requests.post(url, json = myobj)
 
                 print(x.text)
-                # print(b64_string)
+                # print(environmentB64_string)
                 time.sleep(5)
                 # if response.status_code == 200:
                 #     print('Image sent successfully!')

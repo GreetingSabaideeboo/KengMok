@@ -86,19 +86,19 @@ app.post('/add', (req, res) => {
         } else {
             console.log('Image saved successfully:', filePath);
             
-            // db.query(
-            //     'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Picture`, `U_Birthday`, `U_Gender`) VALUES (?,?,?,?,?)',
-            //     [firstname, lastname, filename, birth, gender],
-            //     (error, results, fields) => {
-            //         if (error) {
-            //             console.error('Error executing SQL query:', error);
-            //             res.status(500).json({ error: 'Internal Server Error' });
-            //         } else {
-            //             console.log('User data inserted successfully:', results);
-            //             res.json({ message: 'Image and user data uploaded successfully' });
-            //         }
-            //     }
-            // );
+            db.query(
+                'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Picture`, `U_Birthday`, `U_Gender`) VALUES (?,?,?,?,?)',
+                [firstname, lastname, filename, birth, gender],
+                (error, results, fields) => {
+                    if (error) {
+                        console.error('Error executing SQL query:', error);
+                        res.status(500).json({ error: 'Internal Server Error' });
+                    } else {
+                        console.log('User data inserted successfully:', results);
+                        res.json({ message: 'Image and user data uploaded successfully' });
+                    }
+                }
+            );
         }
     });
 });
@@ -122,31 +122,6 @@ app.post('/files', (req, res) => {
     const base64String = req.body.image;
     console.log(base64String)
     res.send("recive")
-    // if (!base64String) {
-    //     return res.status(400).json({ error: 'Image data is required' });
-    // }
-
-    // const imageBuffer = Buffer.from(base64String, 'base64');
-    // const timestamp = Date.now();
-    // const filename = `image_${timestamp}.jpg`;
-    // console.log(imageBuffer)
-
-    // // // Create folder if it doesn't exist
-    // const folderPath = path.join(__dirname, 'eventPicture', filename);
-    // fs.mkdirSync(folderPath, { recursive: true });  // recursive: true creates parent directories if they don't exist
-
-    // // Specify the path to save the image
-    // const filePath = path.join(folderPath, filename);
-
-    // // Save the image to the server
-    // fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
-    //     if (err) {
-    //         console.error('Error saving image:', err);
-    //         res.status(500).json({ error: 'Failed to save image' });
-    //     } else {
-    //         console.log('Image saved successfully:', filePath);
-    //     }
-    // });
 
 });
 
@@ -155,9 +130,10 @@ app.post('/queryPerson',(req,res)=>{
 })
 app.post('/savePicKios', (req, res) => {
     const image = req.body.image;
-    console.log(image);
+    const face = req.body.face;
+    // console.log(image);
     
-    if (!image) {
+    if (!image && !face) {
         return res.status(400).json({ error: 'Image data is required' });
     }
 
@@ -170,9 +146,22 @@ app.post('/savePicKios', (req, res) => {
     fs.writeFile(imagePath, imageData, 'base64', (err) => {
         if (err) {
             console.error('Error saving image:', err);
-            res.status(500).send('Error saving image');
+            res.status(500).send('Error saving image Environment');
         } else {
             console.log('Image saved successfully:', filename);
+            // res.status(200).send('Image received and saved successfully!');
+        }
+    });
+
+    const faceFileName = `faceImage_${timestamp}.jpg`;
+    const faceImagePath = path.join(__dirname, 'facePicture', faceFileName); // Use path.join to create a full file path
+    const faceImageData = Buffer.from(face, 'base64');
+    fs.writeFile(faceImagePath, faceImageData, 'base64', (err) => {
+        if (err) {
+            console.error('Error saving image:', err);
+            res.status(500).send('Error saving image face');
+        } else {
+            console.log('Image saved successfully:', faceFileName);
             res.status(200).send('Image received and saved successfully!');
         }
     });

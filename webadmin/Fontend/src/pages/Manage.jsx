@@ -27,6 +27,12 @@ function Works() {
       const Gender = document.createElement('li');
       const Birthday = document.createElement('li');
       const hr = document.createElement('hr');
+      var x = document.createElement("BUTTON");
+      x.id=person.UID
+      x.addEventListener("click", () => check(person.UID)); // Modify this line
+      var t = document.createTextNode("Edit");
+      x.appendChild(t);
+      
       // Add content to the list item
       Firstname.textContent = `Firstname: ${person.U_Firstname}`;
       Lastname.textContent = `Lastname: ${person.U_Lastname}`;
@@ -38,8 +44,13 @@ function Works() {
       listContainer?.appendChild(Lastname);
       listContainer?.appendChild(Gender);
       listContainer?.appendChild(Birthday);
+      listContainer?.appendChild(x);
       listContainer?.appendChild(hr);
     }
+  }
+
+  const check =(UID)=>{
+    //เดี๋ยวต้องโยนไปหน้าEditที่ยังไม่สร้าง
   }
   // peopleList()
   // Show()

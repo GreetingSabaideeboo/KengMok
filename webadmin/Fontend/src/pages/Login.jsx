@@ -19,7 +19,9 @@ export default function Sing_up() {
       console.log(Response.data)
       if (Response.data == "Success") {
         sessionStorage.setItem("username",username)
+        // sessionStorage.setItem("username",username)
         console.log(sessionStorage.getItem("username"))
+        // console.log(Response)
         navigate('/home');
       } else {
         sessionStorage.setItem("usernamelogin","null");

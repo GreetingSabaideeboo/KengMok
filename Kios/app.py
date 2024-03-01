@@ -29,7 +29,7 @@ def camera_stream():
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(300, 300))
     try:
         cv2.imwrite('pic.jpg',frame)
     except Exception as E:

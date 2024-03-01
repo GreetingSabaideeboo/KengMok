@@ -20,17 +20,17 @@ function Test() {
         }
     };
 
-    return (
-        <div>
-            Test
-            <br />
-            <button onClick={Show}>Test</button>
+    // return (
+    //     <div>
+    //         Test
+    //         <br />
+    //         <button onClick={Show}>Test</button>
 
-            <div id='pic'>
+    //         <div id='pic'>
                 
-            </div>
-        </div>
-    );
+    //         </div>
+    //     </div>
+    // );
 }
 
 export default Test;

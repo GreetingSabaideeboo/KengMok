@@ -5,7 +5,7 @@
     background-color:#FCF7E8;
   }
 
-  .loginbackground {
+  .loginbackgroundd {
     background-color:white;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -32,7 +32,7 @@
     font-size: 55px;
     font-weight: bolder;
     text-align: center;
-    margin-top: 168px;
+    margin-top: 266px;
     position: relative;
     z-index: 1;
     letter-spacing: 5px;

@@ -33,7 +33,7 @@ function App() {
                   <Route path="/search" element={<Search />} />
                   <Route path="/manage" element={<Manage />} />
                   <Route path="/report" element={<Report />} />
-                  <Route path="/add" element={<Addcrop />} />
+                  <Route path="/addcrop" element={<Addcrop />} />   {/*แก้ addcrop */}
                   <Route path="/home" element={<Home />} />
                   <Route path="/addcrop" element={<Addcrop />} />
                

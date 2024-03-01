@@ -35,7 +35,7 @@ export default function Sing_up() {
     <div>
       <div className="topic">LOGIN</div>
       <body className="box">
-        <div className="loginbackground">
+        <div className="loginbackgroundd">
           {/* <form className="loginbox"></form> */}
           
           <div className="wel">Welcom Back!</div>

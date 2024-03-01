@@ -93,7 +93,7 @@ function Works() {
     <body>
 
       <h1>Manage user</h1>
-      <Link to={"/Add"}><h1>Add Member</h1></Link>
+      <Link to={"/Addcrop"}><h1>Add Member</h1></Link>
       <button onClick={peopleList}>query</button>
       <ul id="List">
 

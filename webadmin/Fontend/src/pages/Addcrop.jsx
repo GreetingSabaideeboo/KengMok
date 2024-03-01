@@ -5,13 +5,12 @@ import axios from 'axios';
 // import NewCollectionCSS from './style/NewCollection.module.css';
 // import React, { useState, useRef, useEffect } from 'react';
 import Cropper from 'react-cropper';
-
-
-
+import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom'
 import Avatar from 'react-avatar-edit'
 import 'cropperjs/dist/cropper.css';
 import { useNavigate  } from "react-router-dom";
+import "../css/add.css";
 
 const Addcrop = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -112,49 +111,58 @@ const Addcrop = () => {
 
   return (
     <>
-
-      <Container>
+      <div>
+      <div className="topadd">ADD STUDENT</div>
+      <body className="container">
+        <div className="loginbackground">
         <div style={{ marginTop: '50px' }} ></div>
-        <input type="text" placeholder="Enter Firstname " onChange={(event) => { setFirstname(event.target.value); }} />
-        <input type="text" placeholder="Enter Lastname " onChange={(event) => { setLastname(event.target.value); }} />
+        <div className="name">
+          <input className="fname" type="text" placeholder="Enter Firstname " onChange={(event) => { setFirstname(event.target.value); }} />
+          <input className="lname" type="text" placeholder="Enter Lastname " onChange={(event) => { setLastname(event.target.value); }} />
+        </div>
         <br />
-        <select value={Gender} onChange={(event) => setGender(event.target.value)}>
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
+        <div className="gendate">
+          <select className="gender" value={Gender} onChange={(event) => setGender(event.target.value)}>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <br />
+          <input className="date" type="Date" placeholder="Enter Birthday" onChange={(event) => { setBirth(event.target.value); }} />
+        </div>
         <br />
-        <input type="Date" placeholder="Enter Birthday" onChange={(event) => { setBirth(event.target.value); }} />
-        <br />
-        <div id='kk'></div>
-        <br/>
-        <input type="file" onChange={handleFileChange} />
-        <div></div>
+        <div className="select">
+          <input type="file" onChange={handleFileChange} />
+        </div>
+        {/* <button className="butadd" onClick={handleFileUpload}>Confirm</button>
+        <button><Link to="/manage" className="butback">Back</Link></button> */}
         {/* <button onClick={handleUpload}>Upload</button> */}
-        {image && (
-          <Cropper
-            src={image}
-            style={{ height: '30%', width: '30% ' }}
-            initialAspectRatio={1}
-            guides={false}
-            crop={onCrop}
-            ref={cropperRef}
-          />
-        )}
+        <div className="pic">
+          {image && (
+            <Cropper
+              src={image} className="crop"
+              initialAspectRatio={1}
+              guides={false}
+              crop={onCrop}
+              ref={cropperRef}
+            />
+          )}
 
-        {croppedImage && (
-          <div>
-            <h3>Cropped Image:</h3>
-            <img src={croppedImage}
-              // className={NewCollectionCSS.croppedImage}
-              alt="Cropped" />
-              <br/>
-              <button onClick={savepic}>save</button>
-          </div>
-        )}
-        
-        
-      </Container>
+          {croppedImage && (
+            <div>
+              <h3>Cropped Image:</h3>
+              <img src={croppedImage} className="preview"
+                // className={NewCollectionCSS.croppedImage}
+                alt="Cropped" />
+                <br/>
+                <button className="butadd" onClick={savepic}>save</button>
+                <button><Link to="/manage" className="butback">Back</Link></button>
+            </div>
+          )}
+        </div>
+        </div>
+      </body>
+      </div>
     </>
   );
 };

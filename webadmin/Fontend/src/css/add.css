@@ -176,6 +176,7 @@ input[type="text"],input[type="password"] {
   .pic {
     display: flex;
     flex-direction: row;
+    margin-top: 82px;
   }
 
   .preview {
@@ -188,5 +189,6 @@ input[type="text"],input[type="password"] {
     width: '30% ';
   }
 
+  
 
   

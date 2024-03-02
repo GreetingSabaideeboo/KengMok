@@ -32,7 +32,7 @@
     font-size: 55px;
     font-weight: bolder;
     text-align: center;
-    margin-top: 266px;
+    margin-top: 256px;
     position: relative;
     z-index: 1;
     letter-spacing: 5px;
@@ -44,7 +44,7 @@
     font-weight: bold;
     text-align: left;
     margin-bottom: -5px;
-    margin-left: 40px;
+    margin-left: 96px;
     margin-top: 50px;
     
   }
@@ -55,7 +55,7 @@
     font-weight: lighter;
     text-align: left;
     margin-bottom: 20px;
-    margin-left: 40px;
+    margin-left: 96px;
   }
   
   .text,
@@ -140,4 +140,8 @@
     text-decoration: underline;
   }
 
+  .userpass {
+    left: 50%;
+    margin-left: 72px;
+  }
  

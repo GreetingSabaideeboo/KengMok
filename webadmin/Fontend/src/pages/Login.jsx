@@ -41,13 +41,12 @@ export default function Sing_up() {
           <div className="wel">Welcom Back!</div>
           <div className="ltc">Login to continue</div>
           
-          {/* <div className="text">Username : </div> */}
+          <div className="userpass">
           <input type="text" placeholder="USERNAME" onChange={(event) => {setusername(event.target.value);}}/>
-
-          {/* <div className="password">Password : </div> */}
           <input type="password" placeholder="PASSWORD" onChange={(event) => {setpassword(event.target.value);}}/>
+          </div>
 
-            <button className="butlog"onClick={requst_login} > Login</button>
+          <button className="butlog"onClick={requst_login} > Login</button>
           
           {/* <p >
             Not registered? <a href="Register">Create an account</a>

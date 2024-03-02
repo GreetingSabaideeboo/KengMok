@@ -150,12 +150,12 @@ const Addcrop = () => {
 
           {croppedImage && (
             <div>
-              <h3>Cropped Image:</h3>
+              {/* <h3>Cropped Image:</h3>
               <img src={croppedImage} className="preview"
                 // className={NewCollectionCSS.croppedImage}
                 alt="Cropped" />
-                <br/>
-                <button className="butadd" onClick={savepic}>save</button>
+                <br/> */}
+                <button className="butadd" onClick={savepic}>Save</button>
                 <button><Link to="/manage" className="butback">Back</Link></button>
             </div>
           )}

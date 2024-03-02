@@ -1,0 +1,50 @@
+.containerr {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -50px;
+    margin-top: 50px;
+  }
+
+  input[type="text"],input[type="password"] {
+    background-color: #FCF7E8;
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    margin-bottom: 22px;
+    margin-left: 70px;
+    margin-right: 1px;
+  }
+
+.search {
+    width: 50px;
+    text-align: left;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+
+
+#manage-container .manage-input {
+    background-color: #FCF7E8;
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    margin-bottom: 22px;
+    margin-left: 70px;
+    margin-right: 1px;
+  }
+
+#manage-container .search {
+    width: 50px;
+    text-align: left;
+    padding: 10px;
+    margin-left: 50px;
+}
+

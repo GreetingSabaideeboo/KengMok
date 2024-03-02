@@ -6,8 +6,6 @@
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-    
-    
   }
   
   /* input, select, button {
@@ -39,7 +37,7 @@
     font-size: 45px;
     font-weight: bolder;
     text-align: center;
-    margin-top: 23px;
+    margin-top: 14px;
     position: relative;
     z-index: 1;
     letter-spacing: 5px;

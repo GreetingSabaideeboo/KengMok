@@ -7,6 +7,7 @@
 
   .loginbackgroundd {
     background-color:white;
+    width: 22%;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: absolute;
@@ -32,7 +33,7 @@
     font-size: 55px;
     font-weight: bolder;
     text-align: center;
-    margin-top: 256px;
+    margin-top: 251px;
     position: relative;
     z-index: 1;
     letter-spacing: 5px;
@@ -44,7 +45,7 @@
     font-weight: bold;
     text-align: left;
     margin-bottom: -5px;
-    margin-left: 96px;
+    margin-left: 75px;
     margin-top: 50px;
     
   }
@@ -55,7 +56,7 @@
     font-weight: lighter;
     text-align: left;
     margin-bottom: 20px;
-    margin-left: 96px;
+    margin-left: 75px;
   }
   
   .text,
@@ -142,6 +143,7 @@
 
   .userpass {
     left: 50%;
-    margin-left: 72px;
+    margin-left: 51px;
+    margin-bottom: 10px;
   }
  

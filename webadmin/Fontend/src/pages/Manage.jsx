@@ -1,8 +1,9 @@
 import React from "react";
-
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Axios from "axios";
 import axios from "axios";
+import "../css/manage.css";
+
 function Works() {
   let people;
   const peopleList = () => [
@@ -83,31 +84,24 @@ function Works() {
     }
   } 
 
-
   const check = (UID) => {
     //เดี๋ยวต้องโยนไปหน้าEditที่ยังไม่สร้าง
   }
   // peopleList()
   // Show()
+
   return (
     <body>
-
-      <h1>Manage user</h1>
+      <div className="containerr">
+      <input type="text" className="search" placeholder="Enter student's name to search" required></input>
+      <button type="submit">
+        <div id="s-circle"></div>
+        <span></span>
+      </button>        
       <Link to={"/Addcrop"}><h1>Add Member</h1></Link>
       <button onClick={peopleList}>query</button>
-      <ul id="List">
-
-      </ul>
-
-
-      {/* <footer className="footer">
-        <p className="footer-by">
-          A project by{" "}
-          <a className="endtext">
-            Noppadon and Pachara
-          </a>
-        </p>
-      </footer> */}
+      </div>
+      <ul id="List"></ul>
     </body>
   );
 }

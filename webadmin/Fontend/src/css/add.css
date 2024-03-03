@@ -174,7 +174,8 @@ input[type="text"],input[type="password"] {
   .pic {
     display: flex;
     flex-direction: row;
-    margin-top: 82px;
+    margin-top: 20px;
+    margin-left: 20px;
   }
 
   .preview {
@@ -183,8 +184,8 @@ input[type="text"],input[type="password"] {
   }
 
   .crop {
-    height: '30%';
-    width: '30% ';
+    width: 100%;
+    margin-top: 50px;
   }
 
   

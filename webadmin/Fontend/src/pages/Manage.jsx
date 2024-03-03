@@ -4,6 +4,7 @@ import Axios from "axios";
 import axios from "axios";
 import "../css/manage.css";
 
+
 function Works() {
   let people;
   const peopleList = () => [
@@ -14,7 +15,6 @@ function Works() {
       console.log(people)
     }),
   ];
-
 
 
   const Show = async () => {
@@ -39,16 +39,21 @@ function Works() {
     // console.log(people.map((x:any)=>x))
     for (const person of people) {
 
-      // Create a new list item
-      const pic = document.createElement('img');
       const Firstname = document.createElement('li');
       const Lastname = document.createElement('li');
       const Gender = document.createElement('li');
       const Birthday = document.createElement('li');
+      const pic = document.createElement('img');
       const hr = document.createElement('hr');
-      var x = document.createElement("BUTTON");
-      x.id = person.UID
+      const btnContainer = document.createElement('div');
+      const editBtn = document.createElement('butedit');
+      const deleteBtn = document.createElement('butdelete');
+      
+      
       pic.src='./team.png'
+      btnContainer.classList.add('btn-container');
+      editBtn.classList.add('butedit');
+      deleteBtn.classList.add('butdelete');
       for (const uid of data.folders){
         if (uid.folderName==person.UID){
           
@@ -62,10 +67,20 @@ function Works() {
         }
       }
       // pic.src = `data:${data.folders[0].images[0].mimeType};base64,${imageBase64}`;
+      var x = document.createElement("BUTTON");
+      x.id = person.UID
+      x.addEventListener("click", () => check(person.UID));
+      x.className = "edit-button";
+      var te = document.createTextNode("Edit");
+      x.appendChild(te);
 
-      x.addEventListener("click", () => check(person.UID)); // Modify this line
-      var t = document.createTextNode("Edit");
-      x.appendChild(t);
+
+      var y = document.createElement("BUTTON");
+      y.id = person.UID
+      y.addEventListener("click", () => check(person.UID)); // อย่าลืมเพิ่มลบคน
+      y.className = "delete-button";
+      var td = document.createTextNode("Delete");
+      y.appendChild(td);
 
       // Add content to the list item
       Firstname.textContent = `Firstname: ${person.U_Firstname}`;
@@ -74,13 +89,15 @@ function Works() {
       Birthday.textContent = `Birthday: ${person.U_Birthday}`;
 
       // Append the list item to the list container
-      listContainer?.appendChild(pic)
+      
       listContainer?.appendChild(Firstname);
       listContainer?.appendChild(Lastname);
       listContainer?.appendChild(Gender);
       listContainer?.appendChild(Birthday);
+      listContainer?.appendChild(pic)
       listContainer?.appendChild(x);
-      listContainer?.appendChild(hr);
+      // listContainer?.appendChild(hr);
+      listContainer?.appendChild(y);
     }
   } 
 
@@ -93,15 +110,15 @@ function Works() {
   return (
     <body>
       <div className="containerr">
-      <input type="text" className="search" placeholder="Enter student's name to search" required></input>
-      <button type="submit">
-        <div id="s-circle"></div>
-        <span></span>
-      </button>        
-      <Link to={"/Addcrop"}><h1>Add Member</h1></Link>
-      <button onClick={peopleList}>query</button>
-      </div>
-      <ul id="List"></ul>
+        
+          <input type="search" className="searchbar" placeholder="Enter student's name to search" required></input>
+          <button type="submit"className="butsearch">Search</button>        
+          <Link to={"/Addcrop"} className="butaddmem">Add Member</Link>
+          <button onClick={peopleList} className="butq">Query</button>
+        
+      </div>  
+      <ul id="List" className="list"></ul>
+      
     </body>
   );
 }

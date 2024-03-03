@@ -40,7 +40,7 @@ function Navbar() {
   return (
     <header className="header">
       <div className="header__content">
-        <Link to="/" className="header__content__logo">
+        <Link to="/home" className="header__content__logo">
           Welcome Back
         </Link>
         <nav className={`${"header__content__nav"} ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} }`}>

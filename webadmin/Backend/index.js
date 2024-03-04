@@ -69,8 +69,8 @@ app.post('/add', (req, res) => {
     const imageBuffer = Buffer.from(base64String.split(',')[1], 'base64');
     const { firstname, lastname, gender, birth } = req.body;
     db.query(
-        'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`) VALUES (?,?,?,?)',
-        [firstname, lastname, birth, gender],
+        'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`,`U_Status`) VALUES (?,?,?,?,?)',
+        [firstname, lastname, birth, gender,1],
         (error, results, fields) => {
             if (error) {
                 console.error('Error executing SQL query:', error);
@@ -122,7 +122,7 @@ app.post('/add', (req, res) => {
 
 app.get('/peopleList', (req, res) => {
 
-    db.query('SELECT * FROM `User`', (error, results, fields) => {
+    db.query('SELECT * FROM `User` WHERE U_Status=1;', (error, results, fields) => {
         if (error) {
             console.error('Error executing SQL query:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -208,6 +208,18 @@ app.get('/getPicture', (req, res) => {
         console.error('Error reading folders:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+app.post('/changeStatus', (req, res) => {
+    const UID = req.body.uid;
+    db.query('UPDATE `User` SET `U_Status` = 0 WHERE UID = ?;', [UID], (error, results, fields) => {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            res.send("delete");
+        }
+    });
 });
 
 

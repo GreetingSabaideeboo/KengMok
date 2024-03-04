@@ -104,11 +104,19 @@ function Works() {
   const check = (UID) => {
     //เดี๋ยวต้องโยนไปหน้าEditที่ยังไม่สร้าง
   }
-  const deLete = (UID) => {
-    confir
-    
+  const deLete = async (UID) => {
+    if (confirm("Delete User " + UID + "?") == true) {
+        try {
+            const response = await axios.post('http://localhost:5001/changeStatus', { uid: UID });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error during axios request:', error);
+        }
+    } else {
+        alert("Cancel");
+    }
+}
 
-  }
   // peopleList()
   // Show()
 

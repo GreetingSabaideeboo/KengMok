@@ -58,11 +58,11 @@ function Works() {
         if (uid.folderName==person.UID){
           
           console.log(uid)
-          // console.log(uid.images[0].imageBase64)
+          console.log(uid.images[0].imageBase64)
           
-          // const imageBase64 = uid.images[0].imageBase64;
-          // pic.src = `data:${uid.images[0].mimeType};base64,${imageBase64}`;
-          // pic.src = `data:${data.folders[0].images[0].mimeType};base64,${imageBase64}`;
+          const imageBase64 = uid.images[0].imageBase64;
+          pic.src = `data:${uid.images[0].mimeType};base64,${imageBase64}`;
+          pic.src = `data:${data.folders[0].images[0].mimeType};base64,${imageBase64}`;
 
         }
       }
@@ -74,10 +74,10 @@ function Works() {
       var te = document.createTextNode("Edit");
       x.appendChild(te);
 
-
+      //delete button
       var y = document.createElement("BUTTON");
       y.id = person.UID
-      y.addEventListener("click", () => check(person.UID)); // อย่าลืมเพิ่มลบคน
+      y.addEventListener("click", () => deLete(person.UID)); // อย่าลืมเพิ่มลบคน
       y.className = "delete-button";
       var td = document.createTextNode("Delete");
       y.appendChild(td);
@@ -103,6 +103,11 @@ function Works() {
 
   const check = (UID) => {
     //เดี๋ยวต้องโยนไปหน้าEditที่ยังไม่สร้าง
+  }
+  const deLete = (UID) => {
+    confir
+    
+
   }
   // peopleList()
   // Show()

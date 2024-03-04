@@ -4,6 +4,7 @@ from deepface import DeepFace
 import requests
 import axios
 import base64
+import numpy as np
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -21,24 +22,84 @@ while True:
             with open("./face.jpg", "rb") as image_file:
                 faceEncoded_string = base64.b64encode(image_file.read())
             try:
-                #for loop
-                Ver_result = DeepFace.verify(ch, face, model_name="VGG-Face", enforce_detection=False)
-                print(Ver_result)
+                url = 'http://localhost:5001/peopleList'
+                people_response = requests.get(url)
+
+                url = 'http://localhost:5001/getPicture'
+                picture = requests.get(url)
+                
+                url = 'http://localhost:5001/getPicture'
+                response = requests.get(url)
+                gender=DeepFace.analyze(frame,actions=("gender"))
+                gender=gender[0]['dominant_gender']
+                # print(gender)
+                if gender=='Man':
+                    gender='Female'
+                    
+                elif gender== 'Woman':
+                    gender='Male'
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    folders = data.get('folders', [])
+                    
+
+                    for folder in folders:
+                        folderName = folder.get('folderName')
+    
+    # for loop check gender
+                        people_data = people_response.json()
+    # เข้าถึงข้อมูลที่ต้องการ
+                        people_list = people_data.get('peopleList', [])
+
+                        for person in people_list:
+                            u_gender = person.get('U_Gender')
+                            if gender == u_gender:
+                                images = folder.get('images', [])
+                                predictID = person.get('UID')
+                                # print(f"folderName: {folderName}, predictID: {predictID}")
+
+                                if int(folderName) == predictID:
+                                    # print(folderName, predictID)
+                                    for image in images:
+                                        imageName = image.get('imageName')
+                                        imageBase64 = image.get('imageBase64')
+
+                                        # แปลง base64 string เป็น binary data
+                                        image_data = base64.b64decode(imageBase64)
+
+                                        # แปลง binary data เป็น numpy array ของภาพ
+                                        nparr = np.frombuffer(image_data, np.uint8)
+                                        img_cv2 = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+                                        Ver_result = DeepFace.verify(img_cv2, face, model_name="VGG-Face", enforce_detection=False)
+                                        if Ver_result['verified']:
+                                            print(predictID)
+                                        # print(Ver_result['verified'])?
+                
+                
+                
+                
+                
+                #for loop get user info
+                # Ver_result = DeepFace.verify(ch, face, model_name="VGG-Face", enforce_detection=False)
+                # print(Ver_result)
+                # result=DeepFace.analyze(frame,actions=("gender"))
+                # print(result)
                 environmentB64_string = environmentEncoded_string.decode()
                 faceB64_string = faceEncoded_string.decode()
-                url = 'http://localhost:5001/savePicKios'
-                myobj = {'image': environmentB64_string,
-                         'face':faceB64_string}
+                
+                
+                # url = 'http://localhost:5001/savePicKios'
+                # myobj = {'image': environmentB64_string,
+                #          'face':faceB64_string}
+                # x = requests.post(url, json = myobj)
 
-
-                x = requests.post(url, json = myobj)
-
-                print(x.text)
+                # print(x.text)
                
-                time.sleep(5)
+                # time.sleep(5)
             except Exception as e:
-                # print(f"Error: {e}")
-                pass
+                print(f"Error: {e}")
+                # pass
     except Exception as e:
         # print(f"Error: {e}")
         pass

@@ -135,7 +135,7 @@
 .list img {
   width: 150px;
   height: 7rem;
-  border-radius: 50%;
+  border-radius: 10%;
   object-fit: cover;
   margin-bottom: 10px;
 }
@@ -180,4 +180,9 @@
 .list hr {
   margin-right: 15px;
   margin-left: 15px;
+}
+
+img{
+  background-color: #000000;
+
 }

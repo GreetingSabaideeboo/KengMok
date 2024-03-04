@@ -95,8 +95,20 @@ app.post('/add', (req, res) => {
                         console.error('Error saving image:', err);
                         res.status(500).json({ error: 'Failed to save image' });
                     } else {
-                        console.log('Image saved successfully:', filePath);
-                        res.status(200).send("suscess")
+                        // UPDATE `User` SET `U_Picture`='path' WHERE UID ="38";
+                        uid=results.insertId
+                        db.query("UPDATE `User` SET `U_Picture`=? WHERE UID =?;",[folderPath,uid],(error,results,fields)=>{
+                            if(error){
+                                console.error('Error executing SQL query:', error);
+                                res.status(500).json({ error: 'Internal Server Error' });
+                            }
+                            else{
+                                console.log('Image saved successfully:', folderPath);
+                                // console.log("result is :",results.insertId)
+                                res.status(200).send("suscess")
+                            }
+                        })
+                        
 
 
                     }

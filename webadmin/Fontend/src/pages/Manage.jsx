@@ -123,10 +123,11 @@ function Works() {
   return (
     <body>
       <div className="containerr">
-        
+          
           <input type="search" className="searchbar" placeholder="Enter student's name to search" required></input>
           <button type="submit"className="butsearch">Search</button>        
-          <Link to={"/Addcrop"} className="butaddmem">Add Member</Link>
+          <Link to={"/addcrop"} className="butaddmem">Add Member</Link>
+          <Link to={"/emotions"} className=" butemotion">Emotions</Link>
           <button onClick={peopleList} className="butq">Query</button>
         
       </div>  

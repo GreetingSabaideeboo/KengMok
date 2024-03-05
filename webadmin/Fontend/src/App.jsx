@@ -11,6 +11,8 @@ import Add from "./pages/Add";
 import Addcrop from "./pages/Addcrop";
 import Footer from "./pages/Footer";
 import Test from "./pages/Test";
+import Emotions from "./pages/Emotions";
+import Addsound from "./pages/Addsound";
 
 function App() {
   return (
@@ -36,7 +38,8 @@ function App() {
                   <Route path="/addcrop" element={<Addcrop />} />   {/*แก้ addcrop */}
                   <Route path="/home" element={<Home />} />
                   <Route path="/addcrop" element={<Addcrop />} />
-               
+                  <Route path="/emotions" element={<Emotions />} />
+                  <Route path="/addsound" element={<Addsound/>} />
                 </Routes>
                 <Footer />
               </>

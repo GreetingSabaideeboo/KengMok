@@ -79,25 +79,6 @@
     
   }
   
-  /* button {
-    background-color: #FAEDCB;
-    position: absolute;
-    font-size:16px;
-    font-weight: bold;
-    color: #564F3D;
-    padding: 10px 22px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.14);
-    transition: all 0.4s ease-out;
-    margin-top: 28px;
-    margin-bottom: 5px;
-    
-  } */
   
   .butlog {
     background-color: #FAEDCB;
@@ -147,3 +128,63 @@
     margin-bottom: 10px;
   }
  
+  .dot1 {
+    height:553px;
+    width:767px;
+    background-color: #ECD7A0;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: -484px;
+    top: -245px;
+  }
+
+  .dot1 {
+    height:553px;
+    width:767px;
+    background-color: #ECD7A0;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: -431px;
+    top: -230px;
+  }
+  .dot2 {
+    height:553px;
+    width:767px;
+    background-color: #ECD7A0;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 1565px;
+    top: -276px;
+  }
+  .dot3 {
+    height:553px;
+    width:767px;
+    background-color: #ECD7A0;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: -403px;
+    top: 639px;
+  }
+  .dot4 {
+    height:553px;
+    width:767px;
+    background-color: #ECD7A0;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 1550px;
+    top: 588px;
+  }
+  .box-dot {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    background-color:#FCF7E8;
+  }
+  body {
+    overflow: hidden;
+  }

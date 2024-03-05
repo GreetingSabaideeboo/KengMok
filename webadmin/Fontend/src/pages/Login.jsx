@@ -34,6 +34,12 @@ export default function Sing_up() {
   return (
     <div>
       <div className="topic">LOGIN</div>
+      <div className="box-dot">
+        <span class="dot1"></span>
+        <span class="dot2"></span>
+        <span class="dot3"></span>
+        <span class="dot4"></span>
+      </div>
       <body className="box">
         <div className="loginbackgroundd">
           {/* <form className="loginbox"></form> */}

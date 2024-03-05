@@ -46,16 +46,16 @@ function Navbar() {
         <nav className={`${"header__content__nav"} ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} }`}>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+                <Link to="/home"className="home">Home</Link>
             </li>
             <li>
-              <Link to="/search">Search</Link>
+              <Link to="/search"className="search">Search</Link>
             </li>
             <li>
-              <Link to="/manage">Manage</Link>
+              <Link to="/manage"className="manage">Manage</Link>
             </li>
             <li>
-              <Link to="/report">Report</Link>
+              <Link to="/report"className="report">Report</Link>
             </li>
             <Link to="/login">
               <button className="btn btn__login" onClick={logout}>Logout</button>

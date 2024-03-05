@@ -29,6 +29,11 @@
     text-decoration: none;
     color: #000000;
     text-shadow: 2px 2px 3px #7c7c7c;
+    transition: 0.3s ease all;
+  }
+  .header__content__logo:hover {
+    color: #ffffffff;
+    text-shadow: 2px 2px 3px #353535;
   }
   
   .header__content__nav {
@@ -62,17 +67,47 @@
       margin-bottom: 32px;
     }
   }
-  
+
   .header__content__nav ul li a {
     text-decoration: none;
     color: inherit;
     padding: 0.75rem 1.25rem;
     border-radius: 12px;
-    transition: 0.3s ease all;
+    cursor: pointer;
+    transition: 0.7s ease all;
+    border-radius: 15px;
   }
   
   .header__content__nav ul li a:hover {
-    background: rgba(#fff, 0.1);
+    font-size: 22px;
+    font-weight: bolder;
+    color: #BC8D12;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-color: #000000bd;
+    border-radius: 45px;
+  }
+
+  .home,.search,.manage,.report {
+    padding:10px 20px;
+    background-color: rgba(255, 255, 255, 0.479);
+    transition: 0.3s all;
+  }
+  .home:hover {
+    background-color: rgb(255, 255, 255);
+    border-radius: 45px;
+  }
+  
+  .search:hover {
+    background-color: rgb(255, 255, 255);
+    border-radius: 45px;
+  }
+  .manage:hover {
+    background-color: rgb(255, 255, 255);
+    border-radius: 45px;
+  }
+  .report:hover {
+    background-color: rgb(255, 255, 255);
+    border-radius: 45px;
   }
   
   .header__content__nav ul li a:active {
@@ -110,6 +145,12 @@
   .header__content__nav .btn__login {
     background-color: rgb(32, 32, 32);
     color: #fff;
+    transition: 0.7s ease all;
+    border-radius: 15px;
+  }
+  .btn__login:hover {
+    font-size: 19px;
+    border-radius: 45px;
   }
   
   @media (min-width: 48em) {
@@ -131,6 +172,7 @@
       align-items: center;
       margin-bottom: 0;
       margin-right: calc(0.5rem + 16px);
+      padding: 10px 10px;
     }
   
     .header__content__nav ul li {
@@ -159,3 +201,4 @@
       display: none;
     }
   }  
+  

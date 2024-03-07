@@ -190,4 +190,11 @@ input[type="text"],input[type="password"] {
 
   
 
-  
+  .pic-container{
+    display: flex;
+    height: 100%;
+    overflow-x:scroll;
+  }
+  .pic{
+    height:100%;
+  }

@@ -12,8 +12,7 @@ if people_response.status_code == 200:
     people_list = people_data.get('peopleList', [])
 
     for person in people_list:
-        u_gender = person.get('U_Gender')
-        print(f'U_Gender: {u_gender}')
+        print(person)
 
 else:
     print(f'Failed to get data. Status code: {people_response.status_code}')

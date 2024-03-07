@@ -16,6 +16,7 @@ function Works() {
     }),
   ];
 
+  document.body.style.overflow = "auto";
 
   const Show = async () => {
     // try {
@@ -131,7 +132,6 @@ function Works() {
           <button onClick={peopleList} className="butq">Query</button>
         
       </div>
-      {peopleList}
       <ul id="List" className="list"></ul>
       
     </body>

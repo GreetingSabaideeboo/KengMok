@@ -10,6 +10,7 @@ export default function Sing_up() {
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
 
+  document.body.style.overflow = "hidden";
   
   const requst_login = () => [
     Axios.post("http://localhost:5001/login", {
@@ -32,7 +33,8 @@ export default function Sing_up() {
   ];
 
   return (
-    <div>
+    <>
+    <div className="body-login">
       <div className="topic">LOGIN</div>
       <div className="box-dot">
         <span class="dot1"></span>
@@ -40,7 +42,7 @@ export default function Sing_up() {
         <span class="dot3"></span>
         <span class="dot4"></span>
       </div>
-      <body className="box-login">
+      
         <div className="loginbackgroundd">
           {/* <form className="loginbox"></form> */}
           
@@ -59,7 +61,7 @@ export default function Sing_up() {
           </p> */}
         
         </div> 
-        </body>
     </div>
+    </>
   );
 }

@@ -35,9 +35,8 @@ const Addsound = () => {
 
     return (
         <>
-            <div className="top">ADD EMOTION</div>
-            
-                <div className="box">
+            <div className="top-emo">ADD EMOTION</div>
+                <div className="box-addsound">
                     <form onSubmit={handleSubmit}>
                         <div className="form-group"> 
                             <label for="emotion" className='emo'>Select emotion</label> 

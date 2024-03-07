@@ -1,4 +1,4 @@
-.top {
+.top-emo {
     color: #D0AB4A;
     font-family: 'Poppins';
     font-size: 45px;
@@ -14,9 +14,8 @@
     
 }
 
-.box {
+.box-addsound {
     display: flex;
-    flex-direction: column;
     width: 28%;
     background-color: #ffffff;
     border-radius:15px;

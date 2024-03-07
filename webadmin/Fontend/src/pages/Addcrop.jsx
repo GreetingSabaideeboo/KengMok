@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 
-// import NewCollectionCSS from './style/NewCollection.module.css';
-// import React, { useState, useRef, useEffect } from 'react';
 import Cropper from 'react-cropper';
 import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom'
@@ -59,36 +57,6 @@ const Addcrop = () => {
     }
   };
 
-
-  // const createEmployeeDB = async () => {
-  //   try {
-  //     const res = await axios.post('http://localhost:3000/createEmployee', { name });
-  //     console.log('create db successfully', res);
-  //   }
-  //   catch (err) {
-  //     console.log('fail to create db', err.message);
-  //   }
-  // }
-
-  // const createEmployeeFolder = async () => {
-  //   // const formData = new FormData();
-  //   // console.log(file);
-  //   // formData.append('labels', file);
-  //   // formData.append('folderName', folderName || 'defaultFolder');
-
-  //   try {
-  //     const { data } = await Axios.post('http://localhost:5001/add', { 
-  //       image: croppedImage,
-  //       firstname:Firstname,
-  //       lastname:Lastname,
-  //       gender:Gender,
-  //       birth:Birth
-  //   })
-  //   
-  //   } catch (error) {
-  //     console.error('Error:', error.message || 'Failed to upload image.');
-  //   }
-  // }
   const savepic = async () => {
     try {
       console.log("active")

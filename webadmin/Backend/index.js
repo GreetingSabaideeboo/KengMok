@@ -222,6 +222,21 @@ app.post('/changeStatus', (req, res) => {
     });
 });
 
+app.post('/addemotion' , (req, res) => {
+    console.log(req.body)
+    emotion = req.body.emotion;
+    text = req.body.text;
+    db.query('INSERT INTO `emotion`(`emotion`, `text`) VALUES (?,?);', [emotion,text], (error, results, fields) => {
+        console.log("xxxxxx")
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            console.log(results);
+            res.send("delete");
+        }
+    });
+})
 
 const port = 5001;
 app.listen(port, () => {

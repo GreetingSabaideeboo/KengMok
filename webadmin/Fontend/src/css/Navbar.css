@@ -97,6 +97,7 @@
     border-radius: 45px;
   }
   
+  
   .search:hover {
     background-color: rgb(255, 255, 255);
     border-radius: 45px;
@@ -109,7 +110,19 @@
     background-color: rgb(255, 255, 255);
     border-radius: 45px;
   }
-  
+  .header__content__nav ul li active-home{
+    font-size: 22px;
+    font-weight: bolder;
+    color: #BC8D12;
+    padding: 10px 20px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 45px;
+  }
+
+
+
+
+
   .header__content__nav ul li a:active {
     border-radius: calc(12px + 6px);
     background: linear-gradient(rgba(#fff, 0.1), rgba(#fff, 0.2));

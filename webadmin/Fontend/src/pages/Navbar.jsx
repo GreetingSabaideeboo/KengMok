@@ -46,7 +46,7 @@ function Navbar() {
         <nav className={`${"header__content__nav"} ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} }`}>
           <ul>
             <li>
-                <Link to="/home"className="home">Home</Link>
+                <Link to="/home"activeClassName="active-home" className="home">Home</Link>
             </li>
             <li>
               <Link to="/search"className="search">Search</Link>

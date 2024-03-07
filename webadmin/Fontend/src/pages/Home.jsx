@@ -1,5 +1,7 @@
 import React from "react";
 import pic from "./team.png"
+
+
 function Home() {
   const check =()=>{
     console.log(sessionStorage.getItem("username"))

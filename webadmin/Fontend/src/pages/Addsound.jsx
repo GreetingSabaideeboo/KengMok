@@ -12,37 +12,55 @@ const Addsound = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+
+        if (!emotion || !text) {
+            window.alert('Please enter both emotion and text.')
+            return
+        }
+
         axios.post('http://localhost:5001/addemotion', {
             emotion: emotion,
             text: text
         })
         .then(response => {
+            window.alert('Add emotion response successfully :)');
+            navigate('/emotions');
             // navigate('/success') // Redirect to a success page
         })
         .catch(error => {
+            window.alert('Add emotion response unsuccessfully :(');
             console.error('There was an error!', error)
         })
     }
 
     return (
-        <div className="">
-            <Container>
-                <div class="d-flex justify-content-center mt-5">
+        <>
+            <div className="top">ADD EMOTION</div>
+            
+                <div className="box">
                     <form onSubmit={handleSubmit}>
-                        <div class="form-group">
-                            <label for="emotion">Emotion</label>
-                            <input type="text" class="form-control" id="emotion" value={emotion} onChange={e => setemotion(e.target.value)} />
+                        <div className="form-group"> 
+                            <label for="emotion" className='emo'>Select emotion</label> 
+                                <select className="box-emo" id="emotion" value={emotion} onChange={e => setemotion(e.target.value)}> 
+                                    <option value="happy" className='happy'>Happy</option>
+                                    <option value="natural">Natural</option>
+                                    <option value="sad">Sad</option>
+                                    <option value="angry">Angry</option>
+                                    <option value="fear">Fear</option>
+                                </select> 
                         </div>
                         <div class="form-group">
-                            <label for="text">Text</label>
-                            <textarea class="form-control" id="text" rows="3" value={text} onChange={e => settext(e.target.value)}></textarea>
+                            {/* <label for="text" className='text'>Text</label> */}
+                            <textarea className="box-text" id="text" rows="4" placeholder='Enter your respone text :)' value={text} onChange={e => settext(e.target.value)}></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="box-button">
+                            <button type="submit" className="butsubmit">Submit</button>
+                            <Link to="/emotions" className="butbackemo">Back</Link>
+                        </div>
                     </form>
                 </div>
-            </Container>
-        </div>
-    )
+        </>
+    );
 }
 
 export default Addsound;

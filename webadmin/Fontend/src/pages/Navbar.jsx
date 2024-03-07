@@ -52,7 +52,10 @@ function Navbar() {
               <Link to="/search"className="search">Search</Link>
             </li>
             <li>
-              <Link to="/manage"className="manage">Manage</Link>
+              <Link to="/manage"className="manage">Students</Link>
+            </li>
+            <li>
+              <Link to="/emotions"className="manage">Emotions</Link>
             </li>
             <li>
               <Link to="/report"className="report">Report</Link>

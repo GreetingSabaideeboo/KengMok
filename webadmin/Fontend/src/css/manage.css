@@ -56,8 +56,8 @@
 
 .butaddmem {
   background-color: #ffffff;
-  color: #9AE780;
-  border-color: #9AE780;
+  color: #63b946;
+  border-color: #63b946;
   margin-right: 20px;
   font-size:16px;
   font-weight: bold;
@@ -69,7 +69,7 @@
   transition: all 0.4s ease-out;
 }
 .butaddmem:hover {
-  background-color: #9AE780;
+  background-color: #63b946;
   color: #ffffff;
   box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.14);
 }
@@ -164,11 +164,11 @@
   background-color: #ffffff;
   padding-left: 29px;
   padding-right: 29px;
-  color: #9AE780;
-  border-color: #9AE780;
+  color: #63b946;
+  border-color: #63b946;
 }
 .edit-button:hover {
-  background-color: #3e8e41;
+  background-color: #63b946;
 }
 
 .delete-button {

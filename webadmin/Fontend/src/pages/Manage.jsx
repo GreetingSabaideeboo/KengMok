@@ -127,10 +127,11 @@ function Works() {
           <input type="search" className="searchbar" placeholder="Enter student's name to search" required></input>
           <button type="submit"className="butsearch">Search</button>        
           <Link to={"/addcrop"} className="butaddmem">Add Member</Link>
-          <Link to={"/emotions"} className=" butemotion">Emotions</Link>
+          {/* <Link to={"/emotions"} className=" butemotion">Emotions</Link> */}
           <button onClick={peopleList} className="butq">Query</button>
         
-      </div>  
+      </div>
+      {peopleList}
       <ul id="List" className="list"></ul>
       
     </body>

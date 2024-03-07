@@ -68,7 +68,7 @@ const Addcrop = () => {
         birth:Birth
     })
     console.log("activeee")
-    window.alert('Add member sussessfully');
+    window.alert('Add member successfully');
     navigate('/manage');
     } catch (error) {
       console.error('Error:', error.message || 'Failed to upload image.');

@@ -6,7 +6,7 @@ import { useNavigate  } from "react-router-dom"
 import "../css/addsound.css"
 
 const Addsound = () => {
-    const [emotion, setemotion] = useState("")
+    const [emotion, setemotion] = useState("happy")
     const [text, settext] = useState("")
     const navigate = useNavigate()
 

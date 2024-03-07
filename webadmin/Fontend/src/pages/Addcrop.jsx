@@ -59,6 +59,11 @@ const Addcrop = () => {
 
   const savepic = async () => {
     try {
+
+      if (!Firstname || !Lastname || !Gender || !Birth || !croppedImage) {
+        window.alert('Please enter student informations.')
+        return
+    }
       console.log("active")
       const { data } = await axios.post('http://localhost:5001/add', { 
         image: croppedImage,

@@ -34,10 +34,10 @@ while True:
                 gender=gender[0]['dominant_gender']
                 # print(gender)
                 if gender=='Man':
-                    gender='Female'
+                    gender='Male'
                     
                 elif gender== 'Woman':
-                    gender='Male'
+                    gender='Female'
                 
                 if response.status_code == 200:
                     data = response.json()
@@ -57,6 +57,8 @@ while True:
                             if gender == u_gender:
                                 images = folder.get('images', [])
                                 predictID = person.get('UID')
+                                name=person.get('U_Firstname')
+                                lastname=person.get('U_Lastname')
                                 # print(f"folderName: {folderName}, predictID: {predictID}")
 
                                 if int(folderName) == predictID:
@@ -73,7 +75,8 @@ while True:
                                         img_cv2 = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
                                         Ver_result = DeepFace.verify(img_cv2, face, model_name="VGG-Face", enforce_detection=False)
                                         if Ver_result['verified']:
-                                            print(predictID)
+                                            print(predictID,name,' ',lastname)
+                                        
                                         # print(Ver_result['verified'])?
                 
                 

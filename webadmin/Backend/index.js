@@ -296,6 +296,9 @@ app.post('/changeStatus', (req, res) => {
     });
 });
 
+
+
+
 app.post('/addemotion', (req, res) => {
     console.log(req.body)
     emotion = req.body.emotion;
@@ -309,7 +312,32 @@ app.post('/addemotion', (req, res) => {
             res.send("delete");
         }
     });
-})
+});
+
+app.get('/emotionlist', (req, res) => {
+    db.query('SELECT `SoundsID`, `emotion`, `text` FROM `emotion` WHERE 1;' , (error, results,fields) => {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            res.send({ emotionlist: results });
+        }
+    });
+});
+
+app.post('/deletesound', (req, res) => {
+    const SoundsID = req.body.uid;
+    db.query('DELETE FROM `emotion` WHERE 0;', [SoundsID], (error, results, fields) => {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            res.send("delete");
+        }
+    });
+});
+
+
 
 const port = 5001;
 app.listen(port, () => {

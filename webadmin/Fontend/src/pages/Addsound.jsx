@@ -25,7 +25,6 @@ const Addsound = () => {
         .then(response => {
             window.alert('Add emotion response successfully :)');
             navigate('/emotions');
-            // navigate('/success') // Redirect to a success page
         })
         .catch(error => {
             window.alert('Add emotion response unsuccessfully :(');

@@ -145,43 +145,55 @@ app.post('/queryPerson', (req, res) => {
 
 })
 app.post('/savePicKios', (req, res) => {
-    const image = req.body.image;
-    const face = req.body.face;
-    // console.log(image);
+    const { image, face, uid, gender, age, emotion,time } = req.body;
 
-    if (!image && !face) {
-        return res.status(400).json({ error: 'Image data is required' });
+    if (!image || !face) {
+        return res.status(400).json({ error: 'Image and face data are required' });
     }
-
 
     const timestamp = Date.now();
     const filename = `image_${timestamp}.jpg`;
-    const imagePath = path.join(__dirname, 'eventPicture', filename); // Use path.join to create a full file path
+    const imagePath = path.join(__dirname, 'eventPicture', filename);
     const imageData = Buffer.from(image, 'base64');
-    console.log(imageData)
+
     fs.writeFile(imagePath, imageData, 'base64', (err) => {
         if (err) {
             console.error('Error saving image:', err);
-            res.status(500).send('Error saving image Environment');
+            return res.status(500).send('Error saving environment image');
         } else {
-            console.log('Image saved successfully:', filename);
-            // res.status(200).send('Image received and saved successfully!');
+            console.log('Environment image saved successfully:', filename);
         }
     });
 
     const faceFileName = `faceImage_${timestamp}.jpg`;
-    const faceImagePath = path.join(__dirname, 'facePicture', faceFileName); // Use path.join to create a full file path
+    const faceImagePath = path.join(__dirname, 'facePicture', faceFileName);
     const faceImageData = Buffer.from(face, 'base64');
+
     fs.writeFile(faceImagePath, faceImageData, 'base64', (err) => {
         if (err) {
-            console.error('Error saving image:', err);
-            res.status(500).send('Error saving image face');
+            console.error('Error saving face image:', err);
+            return res.status(500).send('Error saving face image');
         } else {
-            console.log('Image saved successfully:', faceFileName);
-            res.status(200).send('Image received and saved successfully!');
+            console.log('Face image saved successfully:', faceFileName);
+        }
+    });
+
+    // Assuming your `Event` table structure matches the column names here
+    // Replace '[value-x]' with actual values you want to insert
+    const query = 'INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `EDateTime`) VALUES (?, ?, ?, ?, ?, ?)';
+
+    // Ensure to pass the `time` variable from the request to the query
+    db.query(query, [uid, faceFileName, filename, gender, emotion, time], (error, results, fields) => {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            console.log('Event saved successfully:', results.insertId);
+            return res.status(200).send('Event and images received and saved successfully!');
         }
     });
 });
+
 
 
 app.get('/getPicture', (req, res) => {

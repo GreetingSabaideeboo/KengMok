@@ -22,12 +22,13 @@ function Emotions () {
         const listContainer = document.getElementById('List');
         for (const emotion of emotions) {
             
-            const Emotion = document.createElement('li');
-            const Text = document.createElement('li');
+            const Emotion = document.createElement('liemo');
+            const Text = document.createElement('liemo');
             const btnContainer = document.createElement('div');
             const emoedit = document.createElement('butedit-emo');
             const emodelete = document.createElement('butdelete-emo');
-            
+            const hr = document.createElement('hr');
+
             btnContainer.classList.add('btn-container');
             emoedit.classList.add('butedit-emo');
             emodelete.classList.add('butdelete-emo');
@@ -36,7 +37,7 @@ function Emotions () {
             var eb = document.createElement("BUTTON");
             eb.id = emotion.emotions
             eb.addEventListener("click", () => check(emotion.emotions));
-            eb.className = "edit-button";
+            eb.className = "emoedit-button";
             var te = document.createTextNode("Edit");
             eb.appendChild(te);
 
@@ -44,7 +45,7 @@ function Emotions () {
             var db = document.createElement("BUTTON");
             db.id = emotion.emotions
             db.addEventListener("click", () => Delete(emotion.emotions)); // อย่าลืมเพิ่มลบคน
-            db.className = "delete-button";
+            db.className = "emodelete-button";
             var td = document.createTextNode("Delete");
             db.appendChild(td);
 
@@ -53,8 +54,11 @@ function Emotions () {
             Text.textContent = `Text respone : ${emotion.text}`;
 
             //append list to list container
+            
             listContainer?.appendChild(Emotion);
             listContainer?.appendChild(Text);
+            listContainer?.appendChild(eb);
+            listContainer?.appendChild(db);
         }
     }
     const Delete = async (SoundsID) => {
@@ -87,7 +91,9 @@ function Emotions () {
             </div> 
             
         </div>
-        <ul id="List" className="list-emo"></ul>
+        <div className="box-list">
+            <ul id="List" className="list-emo"></ul>
+        </div>
         </>
     );
 }

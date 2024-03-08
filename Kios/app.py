@@ -1,27 +1,31 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import cv2
+import mysql.connector
 import os
 from starlette.staticfiles import StaticFiles
 from pathlib import Path
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 HOST="localhost"
 PORT=8080
-
+templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 cam = cv2.VideoCapture(0)
 origins = [r'^http://localhost($|:\d+$)']
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True
-)
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
+def get_latest_events():
+    
+    return [
+        {"ewfasf": "Event A", "detail": "Details of Event A"},
+        {"name": "Event B", "detail": "Details of Event B"},
+        {"name": "Event C", "detail": "Details of Event C"},
+        {"name": "Event D", "detail": "Details of Event D"},
+    ]
 
 
 def camera_stream():
@@ -60,14 +64,10 @@ def video_feed():
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 app.mount("/assets", StaticFiles(directory=Path(os.path.join(script_dir,"dist/assets")), html=True), name="assets")
-@app.get('/')
-async def index():
-    try:
-        sioClient.connect(SERVER_URL)
-    except:
-        pass
-    file_path = os.path.join(script_dir, "dist/index.html")
-    return HTMLResponse(content=open(file_path).read())
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    events = get_latest_events()
+    return templates.TemplateResponse("index.html", {"request": request, "events": events})
 
 
 if __name__ == "__main__":

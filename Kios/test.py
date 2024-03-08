@@ -28,7 +28,7 @@ except Exception as e:
 
 
 def makeSound(name):
-    greeting = "sa wad dee krub" + name
+    greeting = "sa wad dee krub kun" + name
     subprocess.call(['say', greeting])
 
     

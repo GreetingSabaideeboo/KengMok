@@ -7,10 +7,13 @@ import base64
 import numpy as np
 from numpy.linalg import norm
 from datetime import datetime
+# import pyttsx3
+import subprocess
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 tracker=[]
+# engine = pyttsx3.init() 
 
 try:
     url = 'http://localhost:5001/peopleList'
@@ -21,6 +24,13 @@ try:
     
 except Exception as e:
     print(e)
+    
+
+
+def makeSound(name):
+    greeting = "sa wad dee krub kun" + name
+    subprocess.call(['say', greeting])
+
     
 def calculate_age(birthday_str):
     """Calculate age given a birthday."""
@@ -34,12 +44,13 @@ def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_
     people = people_response.json()
     for person in people['peopleList']:
         if person['UID'] == UID:
+            name=person['U_Firstname']
             # Assuming you want to log or print the person's details along with the age
             if age==0:
                 age = calculate_age(person['U_Birthday'])
             else:
                 pass
-
+    makeSound(name)           
     environmentB64_string = environmentEncoded_string.decode() 
     faceB64_string = faceEncoded_string.decode() 
     # print(UID,gender,age,emotion,environmentB64_string,faceB64_string)

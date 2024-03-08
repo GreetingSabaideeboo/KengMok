@@ -60,64 +60,56 @@ app.post('/login', (req, res) => {
     });
 });
 app.post('/add', (req, res) => {
-    const base64String = req.body.image;
-
-    if (!base64String) {
+    const base64Strings = req.body.image; // Expecting an array of base64 strings
+    console.log(base64Strings)
+    if (!base64Strings || base64Strings.length === 0) {
         return res.status(400).json({ error: 'Image data is required' });
     }
 
-    const imageBuffer = Buffer.from(base64String.split(',')[1], 'base64');
     const { firstname, lastname, gender, birth } = req.body;
-    db.query(
-        'INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`,`U_Status`) VALUES (?,?,?,?,?)',
-        [firstname, lastname, birth, gender,1],
-        (error, results, fields) => {
-            if (error) {
-                console.error('Error executing SQL query:', error);
-                res.status(500).json({ error: 'Internal Server Error' });
-            } else {
-                // console.log('User data inserted successfully:', results.insertId); 
-                // res.json({ message: 'Image and user data uploaded successfully' });
-                // Generate a unique filename (you may need a more robust solution)
-                const timestamp = Date.now();
-                const filename = `image_${results.insertId}_${timestamp}.jpg`;
 
-                // Create folder if it doesn't exist
-                const folderPath = path.join(__dirname, 'uploads', `${results.insertId}`);
-                fs.mkdirSync(folderPath, { recursive: true });  // recursive: true creates parent directories if they don't exist
+    db.query('INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`, `U_Status`) VALUES (?,?,?,?,1)', 
+        [firstname, lastname, birth, gender], (error, results) => {
+        if (error) {
+            console.error('Error executing SQL query:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        } 
 
-                // Specify the path to save the image
-                const filePath = path.join(folderPath, filename);
+        // Assuming user is successfully inserted, now handle the images
+        const userId = results.insertId;
 
-                // Save the image to the server
-                fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
-                    if (err) {
-                        console.error('Error saving image:', err);
-                        res.status(500).json({ error: 'Failed to save image' });
-                    } else {
-                        // UPDATE `User` SET `U_Picture`='path' WHERE UID ="38";
-                        uid=results.insertId
-                        db.query("UPDATE `User` SET `U_Picture`=? WHERE UID =?;",[folderPath,uid],(error,results,fields)=>{
-                            if(error){
-                                console.error('Error executing SQL query:', error);
-                                res.status(500).json({ error: 'Internal Server Error' });
-                            }
-                            else{
-                                console.log('Image saved successfully:', folderPath);
-                                // console.log("result is :",results.insertId)
-                                res.status(200).send("suscess")
-                            }
-                        })
-                        
+        // Track if an error occurs while saving images
+        let imageSaveErrorOccurred = false;
 
+        const folderPath = path.join(__dirname, 'uploads', `${userId}`);
+        fs.mkdirSync(folderPath, { recursive: true });
 
-                    }
-                });
-            }
+        base64Strings.forEach((base64String, index) => {
+            const timestamp = Date.now();
+            const filename = `image_${userId}_${timestamp}_${index}.jpg`;
+            const filePath = path.join(folderPath, filename);
+            const imageBuffer = Buffer.from(base64String.split(',')[1], 'base64');
+
+            fs.writeFile(filePath, imageBuffer, 'base64', (err) => {
+                if (err) {
+                    console.error('Error saving image:', err);
+                    imageSaveErrorOccurred = true;
+                }
+            });
+
+            // Optional: Update database for each image if necessary
+            // This might involve inserting into an `Images` table, etc.
+        });
+
+        if (imageSaveErrorOccurred) {
+            return res.status(500).json({ error: 'Failed to save one or more images' });
+        } else {
+            // Assuming images are saved successfully, and database is updated as needed
+            return res.status(200).send('User and images added successfully');
         }
-    );
-
+    });
 });
+
 
 
 app.get('/peopleList', (req, res) => {

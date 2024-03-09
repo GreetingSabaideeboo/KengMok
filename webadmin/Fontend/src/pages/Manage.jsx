@@ -132,7 +132,10 @@ function Works() {
           <button onClick={peopleList} className="butq">Query</button>
         
       </div>
-      <ul id="List" className="list"></ul>
+      <div className="box-student">
+        <ul id="List" className="list"></ul>
+      </div>
+      
       
     </body>
   );

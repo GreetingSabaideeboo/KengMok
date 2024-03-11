@@ -18,14 +18,6 @@ origins = [r'^http://localhost($|:\d+$)']
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-def get_latest_events():
-    
-    return [
-        {"ewfasf": "Event A", "detail": "Details of Event A"},
-        {"name": "Event B", "detail": "Details of Event B"},
-        {"name": "Event C", "detail": "Details of Event C"},
-        {"name": "Event D", "detail": "Details of Event D"},
-    ]
 
 
 def camera_stream():
@@ -37,7 +29,8 @@ def camera_stream():
     try:
         cv2.imwrite('pic.jpg',frame)
     except Exception as E:
-        print (E)
+        # print (E)
+        pass
     # Draw rectangles around the detected faces
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -54,11 +47,13 @@ def gen_frame():
         try:
             cv2.imwrite('pic.jpg',frame)
         except Exception as E:
-            print (E)
+            pass
+            # print (E)
         
 
 @app.get('/video_feed')
 def video_feed():
+    
     return StreamingResponse(gen_frame(),
                     media_type='multipart/x-mixed-replace; boundary=frame')
 
@@ -66,8 +61,9 @@ script_dir = os.path.dirname(os.path.realpath(__file__))
 app.mount("/assets", StaticFiles(directory=Path(os.path.join(script_dir,"dist/assets")), html=True), name="assets")
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    events = get_latest_events()
-    return templates.TemplateResponse("index.html", {"request": request, "events": events})
+    # events = get_latest_events()
+    
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 if __name__ == "__main__":

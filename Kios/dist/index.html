@@ -6,11 +6,34 @@
 <body>
     <h1>Love SWK</h1>
     <img src="http://localhost:8080/video_feed" width="100%">
-    <ul>
-        {% for event in events %}
-        <li>{{ event.name }}: {{ event.detail }}</li>
-        {% endfor %}
+    <ul id="latest-events">
+        
     </ul>
     
+    <script>
+        // Function to fetch latest events and update the list
+        async function fetchLatestEvents() {
+            console.log("active")
+            try {
+                const response = await fetch('http://localhost:5001/kios');
+                const data = await response.json();
+                const ul = document.getElementById('latest-events');
+                ul.innerHTML = ''; // Clear previous list items
+                data.forEach(event => {
+                    const li = document.createElement('li');
+                    li.textContent = `${event.EID}: ${event.name}`; // Adjust this based on your event structure
+                    ul.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching latest events:', error);
+            }
+        }
+
+        // Fetch latest events every 5 seconds (adjust as needed)
+        setInterval(fetchLatestEvents, 100);
+        
+        // Initial fetch on page load
+        fetchLatestEvents();
+    </script>
 </body>
 </html>

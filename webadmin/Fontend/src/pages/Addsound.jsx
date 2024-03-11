@@ -70,6 +70,8 @@ const Addsound = () => {
               <option value="sad">Sad</option>
               <option value="angry">Angry</option>
               <option value="fear">Fear</option>
+              <option value="fear">Surprise</option>
+              <option value="fear">Disgust</option>
             </select>
           </div>
           <div class="form-group">

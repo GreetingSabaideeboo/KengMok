@@ -2,20 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../css/kiosk.css" />
+    <link rel="stylesheet" href="assets/kisok.css" />
 </head>
-<body>
-    <div class="top-box">
-        <div class="text">Love SWK</div>
-    </div>
+<div class="top-box">
+    <marquee class="font_btn text-light" direction="left">
+        <div class="text-slide">
+            <div class="top-text">Hello, I hope you have a nice day!</div>
+            <div class="top-text">Study Hard, Play Harder</div>
+            <div class="top-text">The advice is Don't Die!</div>
+        </div>
+        
+    </marquee>
     
-    <div class="box">
+</div>
+<body>
+    <div class="cam-box">
         <img class="camfeed" src="http://localhost:8080/video_feed" >
-        <ul>
+        
+        <div>
             {% for event in events %}
-            <li>{{ event.name }}: {{ event.detail }}</li>
+            <div class="box-text">
+                <div class="text">{{ event.name }}: {{ event.detail }}</div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
     
     

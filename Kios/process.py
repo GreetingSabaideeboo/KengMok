@@ -3,6 +3,7 @@ import time
 from deepface import DeepFace
 import requests
 import axios
+import random
 import base64
 import numpy as np
 from numpy.linalg import norm
@@ -27,8 +28,28 @@ except Exception as e:
     
 
 
-def makeSound(name):
-    greeting = "sa wad dee krub kun" + name
+def makeSound(name,emo):
+    print("emotion recive:",emo)
+   
+    url = 'http://localhost:5001/getSound'
+    myobj = {'emotion': emo}
+    response = requests.post(url, json=myobj)
+    text=""
+    if response.status_code == 200:
+        data = response.json()
+        lenEmotion = len(data)
+        
+        if lenEmotion > 0:
+            num = random.randint(0, lenEmotion - 1)
+            text = data[num]['text']
+            print(text)
+        else:
+            print("Error: No data received from the API")
+    else:
+        print(f"Error: {response.status_code}")
+    
+    
+    greeting = "sa wad dee krub "  +name +text
     subprocess.call(['say', greeting])
 
     
@@ -41,16 +62,20 @@ def calculate_age(birthday_str):
 
 def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_string,Time):
     """Find a person by UID and do something with their information."""
-    people = people_response.json()
-    for person in people['peopleList']:
-        if person['UID'] == UID:
-            name=person['U_Firstname']
-            # Assuming you want to log or print the person's details along with the age
-            if age==0:
-                age = calculate_age(person['U_Birthday'])
-            else:
-                pass
-    makeSound(name)           
+    if UID!=None:
+        people = people_response.json()
+        for person in people['peopleList']:
+            if person['UID'] == UID:
+                name=person['U_Firstname']
+                # Assuming you want to log or print the person's details along with the age
+                if age==0:
+                    age = calculate_age(person['U_Birthday'])
+                else:
+                    pass
+    else:
+        name=""
+    print(name)
+    makeSound(name,emotion)           
     environmentB64_string = environmentEncoded_string.decode() 
     faceB64_string = faceEncoded_string.decode() 
     # print(UID,gender,age,emotion,environmentB64_string,faceB64_string)
@@ -67,6 +92,7 @@ def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_
 
 while True:
     try:
+       
         ret, frame = cap.read()
         # frame = cv2.imread("pic.jpg")
         Time=time.time()
@@ -87,7 +113,7 @@ while True:
             
             for idx, trac in enumerate(tracker):                    
                 cosine = np.dot(embedding,trac['pic'])/(norm(embedding)*norm(trac['pic']))
-                if (Time-trac['time'])>20:
+                if (Time-trac['time'])>10:
                     tracker.pop(idx)
                     print("pop")
                     continue
@@ -160,12 +186,12 @@ while True:
                         if predictUID!=None:
                             current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")
                             saveEvent(predictUID, gender, 0, emotion, environmentEncoded_string, faceEncoded_string, current_time_iso)
-                            # print(predictUID,emotion)      
+                            print(predictUID,emotion)      
                         else:
                             age=DeepFace.analyze(frame,actions=("age"))
                             current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")
                             saveEvent(predictUID, gender, age, emotion, environmentEncoded_string, faceEncoded_string, current_time_iso)
-                            # print("stranger",emotion)                
+                            print("stranger",emotion)                
                     except Exception as e:
                         print(f"Error: {e}")
                 
@@ -286,13 +312,13 @@ while True:
                     if predictUID!=None:
                         current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         saveEvent(predictUID, gender, 0, emotion, environmentEncoded_string, faceEncoded_string, current_time_iso)
-                        # print(predictUID,emotion)      
+                        print(predictUID,emotion,"asdfasdf")      
                     else:
                         age=DeepFace.analyze(frame,actions=("age"))
                         current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         saveEvent(predictUID, gender, age, emotion, environmentEncoded_string, faceEncoded_string, current_time_iso)
 
-                        # print("stranger",emotion)                 
+                        print("stranger",emotion)                 
                 except Exception as e:
                     print(f"Error: {e}")
     except Exception as e:

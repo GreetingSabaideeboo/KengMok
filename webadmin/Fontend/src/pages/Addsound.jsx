@@ -30,7 +30,7 @@ const Addsound = () => {
         text: "Submit Successfully!",
         icon: "success",
       });
-      
+
     }
 
     axios
@@ -66,12 +66,12 @@ const Addsound = () => {
               <option value="happy" className="happy">
                 Happy
               </option>
-              <option value="natural">Natural</option>
+              <option value="neutral">Neutral</option>
               <option value="sad">Sad</option>
               <option value="angry">Angry</option>
               <option value="fear">Fear</option>
-              <option value="fear">Surprise</option>
-              <option value="fear">Disgust</option>
+              <option value="surprice">Surprise</option>
+              <option value="disgust">Disgust</option>
             </select>
           </div>
           <div class="form-group">

@@ -25,15 +25,16 @@
     <script>
         // Function to fetch latest events and update the list
         async function fetchLatestEvents() {
-            console.log("active")
+            console.log("actหกดive")
             try {
                 const response = await fetch('http://localhost:5001/kios');
                 const data = await response.json();
+                console.log(data)
                 const ul = document.getElementById('latest-events');
                 ul.innerHTML = ''; // Clear previous list items
                 data.forEach(event => {
                     const li = document.createElement('li');
-                    li.textContent = `${event.EID}: ${event.name}`; // Adjust this based on your event structure
+                    li.textContent = `${event.EID}: ${event.UID}`; // Adjust this based on your event structure
                     ul.appendChild(li);
                 });
             } catch (error) {
@@ -42,7 +43,7 @@
         }
 
         // Fetch latest events every 5 seconds (adjust as needed)
-        setInterval(fetchLatestEvents, 100);
+        setInterval(fetchLatestEvents, 5000);
         
         // Initial fetch on page load
         fetchLatestEvents();

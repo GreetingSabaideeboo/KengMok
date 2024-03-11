@@ -267,8 +267,9 @@ app.get('/emotionlist', (req, res) => {
 });
 
 app.post('/deletesound', (req, res) => {
-    const SoundsID = req.body.uid;
-    db.query('DELETE FROM `emotion` WHERE 0;', [SoundsID], (error, results, fields) => {
+    const SoundsID = req.body.SoundsID;
+    console.log(SoundsID)
+    db.query('DELETE FROM `emotion` WHERE SoundsID=?;', [SoundsID], (error, results, fields) => {
         if (error) {
             console.error('Error executing SQL query:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -290,6 +291,22 @@ app.get('/kios', (req, res) => {
         res.json(results);
     });
 });
+
+app.post('/getSound',(req,res)=>{
+    emotion=req.body.emotion
+    db.query(`SELECT text FROM Emotion WHERE emotion=?;`,[emotion],(err,results)=>{
+        if (err) {
+            console.error('Error fetching events:', err);
+            res.status(500).send('Error fetching events');
+            return;
+        }
+        else{
+            res.json(results);
+        }
+
+    })
+
+})
 const port = 5001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -45,7 +45,7 @@ function Emotions () {
             //delete button
             var db = document.createElement("BUTTON");
             db.id = emotion.emotions
-            db.addEventListener("click", () => Delete(emotion.emotions)); // อย่าลืมเพิ่มลบคน
+            db.addEventListener("click", () => Delete(emotion.SoundsID)); // อย่าลืมเพิ่มลบคน
             db.className = "emodelete-button";
             var td = document.createTextNode("Delete");
             db.appendChild(td);
@@ -65,10 +65,10 @@ function Emotions () {
     const Delete = async (SoundsID) => {
         if (confirm("Are you sure you want to delete this emotion?") == true) {
           await Axios({
-            method: 'delete',
+            method: 'post',
             url: 'http://localhost:5001/deletesound',
             data: {
-              condition: '0' // replace this with your actual condition for deletion
+              'SoundsID':SoundsID // replace this with your actual condition for deletion
             }
           }).then((response) => {
             console.log(response.data);

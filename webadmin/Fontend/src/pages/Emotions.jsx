@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../css/emotion.css";
 import Navbar from './Navbar';
 import Axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Emotions () {
     let emotions;

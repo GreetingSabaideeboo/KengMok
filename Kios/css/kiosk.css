@@ -1,0 +1,22 @@
+.camfeed {
+    width: 78%;
+    height: 30%;
+}
+.box {
+    display: flex;
+    flex-direction: row;
+}
+.box-top {
+    background: #faedcb;
+    height: 1000px;
+    padding: 0 1rem;
+    transition: 0.3s ease all;
+} 
+body {
+    padding-bottom: 100px !important;
+    height: auto;
+    overflow: hidden;
+}
+
+
+

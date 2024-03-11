@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
-
 import Cropper from 'react-cropper';
 import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom'
@@ -9,6 +8,7 @@ import Avatar from 'react-avatar-edit'
 import 'cropperjs/dist/cropper.css';
 import { useNavigate } from "react-router-dom";
 import "../css/add.css";
+import Swal from 'sweetalert2';
 
 const Addcrop = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -97,8 +97,18 @@ const Addcrop = () => {
   const savepic = async () => {
     // Ensure all required information is provided
     if (!Firstname || !Lastname || !Gender || !Birth || croppedImages.length === 0) {
-      window.alert('Please enter all student information and ensure at least one image is cropped.');
-      return;
+      Swal.fire({
+        icon: "error",
+        title: "Can't Submit",
+        text: "Please enter all informations.",
+      });
+
+    } else {
+      Swal.fire({
+        title: "Good job!",
+        text: "Submit Successfully!",
+        icon: "success",
+      });
     }
     console.log(croppedImages)
     try {
@@ -113,7 +123,7 @@ const Addcrop = () => {
         });
       
   
-      window.alert('Add member successfully');
+      // window.alert('Add member successfully');
       navigate('/manage');
     } catch (error) {
       console.error('Error:', error.message || 'Failed to upload image(s).');
@@ -147,9 +157,6 @@ const Addcrop = () => {
             <div className="select">
               <input type="file" onChange={handleFileChange} multiple />
             </div>
-            {/* <button className="butadd" onClick={handleFileUpload}>Confirm</button>
-        <button><Link to="/manage" className="butback">Back</Link></button> */}
-            {/* <button onClick={handleUpload}>Upload</button> */}
             <div className="pic-container" id="crop-img-container">
               {image.map((img, index) => (
                 <div className="pic" key={index}>

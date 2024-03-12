@@ -26,21 +26,21 @@ function Emotions () {
             const Emotion = document.createElement('liemo');
             const Text = document.createElement('liemo');
             const btnContainer = document.createElement('div');
-            const emoedit = document.createElement('butedit-emo');
+            // const emoedit = document.createElement('butedit-emo');
             const emodelete = document.createElement('butdelete-emo');
             const hr = document.createElement('hr');
 
             btnContainer.classList.add('btn-container');
-            emoedit.classList.add('butedit-emo');
+            // emoedit.classList.add('butedit-emo');
             emodelete.classList.add('butdelete-emo');
 
             //edit button
-            var eb = document.createElement("BUTTON");
-            eb.id = emotion.emotions
-            eb.addEventListener("click", () => check(emotion.emotions));
-            eb.className = "emoedit-button";
-            var te = document.createTextNode("Edit");
-            eb.appendChild(te);
+            // var eb = document.createElement("BUTTON");
+            // eb.id = emotion.emotions
+            // eb.addEventListener("click", () => check(emotion.emotions));
+            // eb.className = "emoedit-button";
+            // var te = document.createTextNode("Edit");
+            // eb.appendChild(te);
 
             //delete button
             var db = document.createElement("BUTTON");
@@ -58,7 +58,7 @@ function Emotions () {
             
             listContainer?.appendChild(Emotion);
             listContainer?.appendChild(Text);
-            listContainer?.appendChild(eb);
+            // listContainer?.appendChild(eb);
             listContainer?.appendChild(db);
         }
     }

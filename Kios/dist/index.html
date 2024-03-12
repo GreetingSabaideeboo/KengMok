@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="assets/kisok.css" />
 </head>
+
 <div class="top-box">
     <marquee class="font_btn text-light" direction="left">
         <div class="text-slide">
@@ -11,42 +12,50 @@
             <div class="top-text">Study Hard, Play Harder</div>
             <div class="top-text">The advice is Don't Die!</div>
         </div>
-        
     </marquee>
-    
 </div>
-<body>
-    <h1>Love SWK</h1>
-    <img src="http://localhost:8080/video_feed" width="100%">
-    <ul id="latest-events">
-        
-    </ul>
-    
-    <script>
-        // Function to fetch latest events and update the list
-        async function fetchLatestEvents() {
-            console.log("actหกดive")
-            try {
-                const response = await fetch('http://localhost:5001/kios');
-                const data = await response.json();
-                console.log(data)
-                const ul = document.getElementById('latest-events');
-                ul.innerHTML = ''; // Clear previous list items
-                data.forEach(event => {
-                    const li = document.createElement('li');
-                    li.textContent = `${event.EID}: ${event.UID}`; // Adjust this based on your event structure
-                    ul.appendChild(li);
-                });
-            } catch (error) {
-                console.error('Error fetching latest events:', error);
-            }
-        }
 
-        // Fetch latest events every 5 seconds (adjust as needed)
-        setInterval(fetchLatestEvents, 5000);
+<body>
+    
+    <div class="cam-box">
+        <img class="camfeed" src="http://localhost:8080/video_feed" >
+    </div>
         
-        // Initial fetch on page load
-        fetchLatestEvents();
-    </script>
+    <div>
+        <script>
+            // Function to fetch latest events and update the list
+            async function fetchLatestEvents() {
+                console.log("active")
+                try {
+                    const response = await fetch('http://localhost:5001/kios');
+                    const data = await response.json();
+                    console.log(data)
+                    const container = document.getElementById('latest-events-container');
+                    container.innerHTML = ''; // Clear previous content
+                    data.forEach(event => {
+                        const divBox = document.createElement('div');
+                        divBox.classList.add('box-text');
+        
+                        const divText = document.createElement('div');
+                        divText.classList.add('text');
+                        divText.textContent = `${event.EID}: ${event.UID}`; // Adjust this based on your event structure
+        
+                        divBox.appendChild(divText);
+                        container.appendChild(divBox);
+                    });
+                } catch (error) {
+                    console.error('Error fetching latest events:', error);
+                }
+            }
+        
+            // Fetch latest events every 5 seconds (adjust as needed)
+            setInterval(fetchLatestEvents, 5000);
+        
+            // Initial fetch on page load
+            fetchLatestEvents();
+        </script>
+        
+    </div>
+    
 </body>
 </html>

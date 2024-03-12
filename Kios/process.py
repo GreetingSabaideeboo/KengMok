@@ -111,7 +111,8 @@ while True:
             # print(embedding)
             count=0
             
-            for idx, trac in enumerate(tracker):                    
+            for idx, trac in enumerate(tracker):              
+                print(embedding,trac['pic'])      
                 cosine = np.dot(embedding,trac['pic'])/(norm(embedding)*norm(trac['pic']))
                 if (Time-trac['time'])>10:
                     tracker.pop(idx)

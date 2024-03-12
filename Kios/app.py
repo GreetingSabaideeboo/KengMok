@@ -25,7 +25,7 @@ def camera_stream():
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(300, 300))
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(300, 300))
     try:
         cv2.imwrite('pic.jpg',frame)
     except Exception as E:
@@ -33,6 +33,10 @@ def camera_stream():
         pass
     # Draw rectangles around the detected faces
     for (x, y, w, h) in faces:
+        # x+=75
+        # y+=75
+        # w-=100
+        # h-=100
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
     return cv2.imencode('.jpg', frame)[1].tobytes()
 

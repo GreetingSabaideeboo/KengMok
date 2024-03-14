@@ -13,7 +13,8 @@ import Footer from "./pages/Footer";
 import Test from "./pages/Test";
 import Emotions from "./pages/Emotions";
 import Addsound from "./pages/Addsound";
-
+import EditUser from "./pages/EditUser";
+import History from "./pages/History";
 function App() {
   return (
     <div className="main-display">
@@ -40,13 +41,16 @@ function App() {
                   <Route path="/addcrop" element={<Addcrop />} />
                   <Route path="/emotions" element={<Emotions />} />
                   <Route path="/addsound" element={<Addsound/>} />
+                  <Route path="/editUser" element={<EditUser/>} />
+                  <Route path="/history" element={<History/>} />
                 </Routes>
-                <Footer />
+                
               </>
             }
           />
         </Routes>
       </HashRouter>
+      <Footer />
     </div>
   );
 }

@@ -186,7 +186,7 @@ app.post('/savePicKios', (req, res) => {
     const query = 'INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `EDateTime`) VALUES (?, ?, ?, ?, ?, ?)';
 
     // Ensure to pass the `time` variable from the request to the query
-    db.query(query, [uid, faceFileName, filename, gender, emotion, time], (error, results, fields) => {
+    db.query(query, [uid, face, image, gender, emotion, time], (error, results, fields) => {
         if (error) {
             console.error('Error executing SQL query:', error);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -282,15 +282,17 @@ app.post('/deletesound', (req, res) => {
 
 
 app.get('/kios', (req, res) => {
-    db.query('SELECT * FROM `Event` ORDER BY EID DESC LIMIT 4', (err, results) => {
+    db.query('SELECT Event.EID, User.U_Firstname, User.U_Lastname, Event.UID, Event.FacePicture, Event.EnvironmentPicture, Event.Gender, Event.Emotion, Event.EDateTime FROM Event INNER JOIN User ON Event.UID = User.UID ORDER BY Event.EID DESC LIMIT 4;', (err, results) => {
         if (err) {
             console.error('Error fetching events:', err);
             res.status(500).send('Error fetching events');
             return;
         }
+        console.log(results);
         res.json(results);
     });
 });
+
 
 app.post('/getSound',(req,res)=>{
     emotion=req.body.emotion
@@ -307,6 +309,40 @@ app.post('/getSound',(req,res)=>{
     })
 
 })
+app.post('/getUser',(req,res)=>{
+    UID=req.body.UID
+    console.log(UID)
+    db.query(`SELECT U_Firstname, U_Lastname, U_Picture, U_Birthday, U_Gender FROM User WHERE UID=?;`,[UID],(err,results)=>{
+        if (err) {
+            console.error('Error fetching events:', err);
+            res.status(500).send('Error fetching events');
+            return;
+        }
+        else{
+            res.json(results);
+        }
+
+    })
+    
+
+})
+
+app.post('/updateUser', (req, res) => {
+    const { U_Firstname, U_Lastname, U_Gender, U_Birthday, UID } = req.body;
+    db.query(
+        `UPDATE User SET U_Firstname=?, U_Lastname=?, U_Birthday=?, U_Gender=? WHERE UID=?`,
+        [U_Firstname, U_Lastname, U_Birthday, U_Gender, UID],
+        (err, results) => {
+            if (err) {
+                console.error("Error updating user:", err);
+                res.status(500).send('Error updating user');
+            }
+            else {
+                res.send("update user success").status(200)
+            }
+        }
+    );
+});
 const port = 5001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

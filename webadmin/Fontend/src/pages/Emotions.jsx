@@ -19,8 +19,9 @@ function Emotions () {
 
     document.body.style.overflow = "auto";
 
-    const show = async () => {
+    const show =  () => {
         const listContainer = document.getElementById('List');
+        listContainer.innerHTML=""
         for (const emotion of emotions) {
             
             const Emotion = document.createElement('liemo');
@@ -72,11 +73,15 @@ function Emotions () {
             }
           }).then((response) => {
             console.log(response.data);
-            show();
+            
+
           });
         }
+        emotionlist();
       }
-
+      useEffect(()=>{
+        emotionlist()
+      })
 
     return (
         <>
@@ -88,7 +93,7 @@ function Emotions () {
                 <div className="space"></div>
                 <Link to={"/addsound"} className="butaddsound">Add</Link>
                 {/* <div className="space"> </div> */}
-                <button onClick={emotionlist} className="butlistemo">List</button>
+                {/* <button onClick={emotionlist} className="butlistemo">List</button> */}
             </div> 
             
         </div>

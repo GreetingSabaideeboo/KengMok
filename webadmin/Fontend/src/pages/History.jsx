@@ -24,7 +24,7 @@ function History() {
     <h2 className="text-2xl font-bold mb-4">History</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {events.map((event, index) => (
-        <div key={index} className="bg-white shadow-md rounded-lg p-4">
+        <div key={index} className="bg-white shadow-md rounded-lg p-4 ml-5">
           <div className="font-bold text-lg mb-2">EID: {event.EID}</div>
           <div className="text-gray-700 mb-2">Name: {event.U_Firstname}{event.U_Lastname}</div>
           <div className="text-gray-700 mb-2">Emotion: {event.Emotion}</div>

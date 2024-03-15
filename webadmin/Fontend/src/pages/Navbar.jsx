@@ -57,9 +57,7 @@ function Navbar() {
             <li>
               <Link to="/emotions"className="manage">Emotions</Link>
             </li>
-            <li>
-              <Link to="/report"className="report">Report</Link>
-            </li>
+            
             <Link to="/login">
               <button className="btn btn__login" onClick={logout}>Logout</button>
             </Link>

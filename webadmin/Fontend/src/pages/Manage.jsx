@@ -65,21 +65,6 @@ function Works() {
                   <div className="flex justify-center items-center">
                     <img className="w-full h-64 object-cover rounded-md justify-self-center" src={`${person.U_PictureTitle}`} alt="profile" />
                   </div>
-
-
-                  {/* <div className="flex justify-around mt-2">
-                <button
-                  className="bg-yellow-400 px-4 py-2 rounded-lg border-solid border-black hover:bg-yellow-300 hover:text-black"
-                  onClick={() => edit(person.UID)} // ใช้ arrow function ที่นี่
-                >
-                  Edit
-                </button>
-                <button
-                  className="bg-red-400 px-4 py-2 rounded-lg border-solid border-black hover:bg-red-300 hover:text-black"
-                  onClick={() => deLete(person.UID)} >
-                  Delete
-                </button>
-              </div> */}
                 </li>
               </a>
 
@@ -88,7 +73,8 @@ function Works() {
 
 
         </div>
-      </div></div>
+      </div>
+    </div>
 
   );
 }

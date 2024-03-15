@@ -49,7 +49,7 @@ function Navbar() {
                 <Link to="/home"activeClassName="active-home" className="home">Home</Link>
             </li>
             <li>
-              <Link to="/search"className="search">Search</Link>
+              <Link to="/history"className="search">History</Link>
             </li>
             <li>
               <Link to="/manage"className="manage">Students</Link>

@@ -66,10 +66,10 @@ app.post('/add', (req, res) => {
         return res.status(400).json({ error: 'Image data is required' });
     }
 
-    const { firstname, lastname, gender, birth } = req.body;
+    const { firstname, lastname, gender, birth ,Pictitle} = req.body;
 
-    db.query('INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`, `U_Status`) VALUES (?,?,?,?,1)',
-        [firstname, lastname, birth, gender], (error, results) => {
+    db.query('INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`, `U_Status`,`U_PictureTitle`) VALUES (?,?,?,?,1,?)',
+        [firstname, lastname, birth, gender,Pictitle], (error, results) => {
             if (error) {
                 console.error('Error executing SQL query:', error);
                 return res.status(500).json({ error: 'Internal Server Error' });
@@ -149,49 +149,49 @@ app.post('/queryPerson', (req, res) => {
 })
 app.post('/savePicKios', (req, res) => {
     const { image, face, uid, gender, age, emotion, time } = req.body;
-
+    console.log(age)
     if (!image || !face) {
         return res.status(400).json({ error: 'Image and face data are required' });
     }
 
-    const timestamp = Date.now();
-    const filename = `image_${timestamp}.jpg`;
-    const imagePath = path.join(__dirname, 'eventPicture', filename);
-    const imageData = Buffer.from(image, 'base64');
+    // const timestamp = Date.now();
+    // const filename = `image_${timestamp}.jpg`;
+    // const imagePath = path.join(__dirname, 'eventPicture', filename);
+    // const imageData = Buffer.from(image, 'base64');
 
-    fs.writeFile(imagePath, imageData, 'base64', (err) => {
-        if (err) {
-            console.error('Error saving image:', err);
-            return res.status(500).send('Error saving environment image');
-        } else {
-            console.log('Environment image saved successfully:', filename);
-        }
-    });
+    // fs.writeFile(imagePath, imageData, 'base64', (err) => {
+    //     if (err) {
+    //         // console.error('Error saving image:', err);
+    //         return res.status(500).send('Error saving environment image');
+    //     } else {
+    //         // console.log('Environment image saved successfully:', filename);
+    //     }
+    // });
 
-    const faceFileName = `faceImage_${timestamp}.jpg`;
-    const faceImagePath = path.join(__dirname, 'facePicture', faceFileName);
-    const faceImageData = Buffer.from(face, 'base64');
+    // const faceFileName = `faceImage_${timestamp}.jpg`;
+    // const faceImagePath = path.join(__dirname, 'facePicture', faceFileName);
+    // const faceImageData = Buffer.from(face, 'base64');
 
-    fs.writeFile(faceImagePath, faceImageData, 'base64', (err) => {
-        if (err) {
-            console.error('Error saving face image:', err);
-            return res.status(500).send('Error saving face image');
-        } else {
-            console.log('Face image saved successfully:', faceFileName);
-        }
-    });
+    // fs.writeFile(faceImagePath, faceImageData, 'base64', (err) => {
+    //     if (err) {
+    //         // console.error('Error saving face image:', err);
+    //         return res.status(500).send('Error saving face image');
+    //     } else {
+    //         // console.log('Face image saved successfully:', faceFileName);
+    //     }
+    // });
 
     // Assuming your `Event` table structure matches the column names here
     // Replace '[value-x]' with actual values you want to insert
-    const query = 'INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `EDateTime`) VALUES (?, ?, ?, ?, ?, ?)';
-
+    const query = 'INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`,`Age`, `EDateTime`) VALUES (?, ?, ?, ?, ?, ?,?)';
+                    // INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `Age`, `EDateTi÷me`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
     // Ensure to pass the `time` variable from the request to the query
-    db.query(query, [uid, face, image, gender, emotion, time], (error, results, fields) => {
+    db.query(query, [uid, face, image, gender, emotion, time,age], (error, results, fields) => {
         if (error) {
-            console.error('Error executing SQL query:', error);
+            // console.error('Error executing SQL query:', error);
             return res.status(500).json({ error: 'Internal Server Error' });
         } else {
-            console.log('Event saved successfully:', results.insertId);
+            // console.log('Event saved successfully:', results.insertId);
             return res.status(200).send('Event and images received and saved successfully!');
         }
     });
@@ -343,6 +343,18 @@ app.post('/updateUser', (req, res) => {
         }
     );
 });
+
+app.get('/getAllEvent',(req,res)=>{
+    db.query('SELECT * FROM `Event` INNER JOIN `User` ON Event.UID=User.UID ',(err,results)=>{
+        if (err) {
+            console.error("Error query event", err);
+            res.status(500).send('Error query event');
+        }
+        else {
+            res.send(results)
+        }
+    })
+})
 const port = 5001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

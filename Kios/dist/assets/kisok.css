@@ -15,6 +15,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    
+   
 }
 .top-box {
     background: #ECD7A0;
@@ -27,7 +29,7 @@
     margin-bottom: 50px;
     border-radius:15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    /* transition: 0.3s ease all; */
+    
 } 
 .top-text {
     font-family: 'Poppins';
@@ -60,3 +62,4 @@ body {
     font-size: 20px;
     font-weight: bolder;
 }
+

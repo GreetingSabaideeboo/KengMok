@@ -119,7 +119,8 @@ const Addcrop = () => {
           firstname: Firstname,
           lastname: Lastname,
           gender: Gender,
-          birth: Birth
+          birth: Birth,
+          Pictitle:croppedImages[0]
         });
       
   

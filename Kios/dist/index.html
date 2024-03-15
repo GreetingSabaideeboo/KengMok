@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="assets/kisok.css" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/kisok.css">
 </head>
+<body>
 
 <div class="top-box">
     <marquee class="font_btn text-light" direction="left">
@@ -15,47 +16,80 @@
     </marquee>
 </div>
 
-<body>
-    
-    <div class="cam-box">
-        <img class="camfeed" src="http://localhost:8080/video_feed" >
-    </div>
-        
-    <div>
-        <script>
-            // Function to fetch latest events and update the list
-            async function fetchLatestEvents() {
-                console.log("active")
-                try {
-                    const response = await fetch('http://localhost:5001/kios');
-                    const data = await response.json();
-                    console.log(data)
-                    const container = document.getElementById('latest-events-container');
-                    container.innerHTML = ''; // Clear previous content
-                    data.forEach(event => {
-                        const divBox = document.createElement('div');
-                        divBox.classList.add('box-text');
-        
-                        const divText = document.createElement('div');
-                        divText.classList.add('text');
-                        divText.textContent = `${event.EID}: ${event.UID}`; // Adjust this based on your event structure
-        
-                        divBox.appendChild(divText);
-                        container.appendChild(divBox);
-                    });
-                } catch (error) {
-                    console.error('Error fetching latest events:', error);
-                }
+<div class="cam-box">
+    <img class="camfeed" src="http://localhost:8080/video_feed" alt="Camera Feed">
+</div>
+
+<div id="latest-events-container">
+    <!-- Latest events will be inserted here -->
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        async function fetchLatestEvents() {
+            console.log("active");
+            try {
+                const response = await fetch('http://localhost:5001/kios');
+                const data = await response.json();
+                console.log("data is:",data);
+                const container = document.getElementById('latest-events-container');
+                container.innerHTML = ''; // Clear previous content
+                data.forEach(event => {
+                    p=document.createElement('h1')
+                    if(event.Emotion=="neutral"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🙂"
+                    }
+                    else if(event.Emotion=="happy"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😃"
+                    }
+                    else if(event.Emotion=="sad"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🙁"
+                    }
+                    else if(event.Emotion=="angry"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😡"
+                    }
+                    else if(event.Emotion=="fear"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😖"
+                    }
+                    else if(event.Emotion=="surprice"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😲"
+                    }
+                    else if(event.Emotion=="disgust"){
+                        p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🤢"
+                    }
+                    
+
+                    
+                    img=document.createElement('img')
+                    img.src = `data:image/jpeg;base64,${event.FacePicture}`;
+                    const divBox = document.createElement('div');
+                    
+                    divBox.classList.add('box-text');
+
+                    const divText = document.createElement('div');
+                    
+                    divText.classList.add('text');
+                    
+                    //divText.textContent = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`; // Adjust this based on your event structure
+                    
+                    
+                    divBox.appendChild(p);
+                    divBox.appendChild(img);
+                    
+                    container.appendChild(divBox);
+                });
+            } catch (error) {
+                console.error('Error fetching latest events:', error);
             }
-        
-            // Fetch latest events every 5 seconds (adjust as needed)
-            setInterval(fetchLatestEvents, 5000);
-        
-            // Initial fetch on page load
-            fetchLatestEvents();
-        </script>
-        
-    </div>
-    
+        }
+
+        // Fetch latest events every 5 seconds (adjust as needed)
+        setInterval(fetchLatestEvents, 5000);
+
+        // Initial fetch on page load
+        fetchLatestEvents();
+    });
+</script>
+
 </body>
 </html>

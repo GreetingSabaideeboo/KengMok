@@ -43,7 +43,21 @@ function EditUser() {
             console.error("Error updating user:", error);
             // Handle error, display error message to user
         });
+
     };
+    const deLete = async (UID) => {
+        if (confirm("Delete User " + UID + "?") == true) {
+          try {
+            const response = await Axios.post('http://localhost:5001/changeStatus', { uid: UID });
+            // console.log(response.data);
+            peopleList()
+          } catch (error) {
+            console.error('Error during axios request:', error);
+          }
+        } else {
+          alert("Cancel");
+        }
+      }
     
 
     return (
@@ -72,8 +86,14 @@ function EditUser() {
                         <label>Birthday</label>
                         <input type="date" name="U_Birthday" value={user.U_Birthday} onChange={handleInputChange} className='w-full mt-2 border-2' />
                     </div>
-                    <button type="submit" className='bg-blue-500 text-white px-4 py-2 rounded-md'>Save Changes</button>
+                    <div className='flex justify-between'> 
+                        <button type="submit" className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-400'>Save Changes</button>
+                    <button className='bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-400' onClick={()=>{deLete(sessionStorage.getItem("editID"))}}>Delete User</button>
+                    </div>
+                   
                 </form>
+
+            
             </div>
         </div>
         </div>

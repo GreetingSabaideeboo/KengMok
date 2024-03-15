@@ -27,6 +27,7 @@ def camera_stream():
     # Perform face detection
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(300, 300))
     try:
+        pass
         cv2.imwrite('pic.jpg',frame)
     except Exception as E:
         # print (E)

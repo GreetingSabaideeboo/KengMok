@@ -30,7 +30,7 @@ db.connect((err) => {
     console.log('Connected to the database successfully');
 });
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { 
     res.send("still");
 });
 
@@ -288,7 +288,7 @@ app.get('/kios', (req, res) => {
             res.status(500).send('Error fetching events');
             return;
         }
-        console.log(results);
+        // console.log(results);
         res.json(results);
     });
 });
@@ -311,7 +311,7 @@ app.post('/getSound',(req,res)=>{
 })
 app.post('/getUser',(req,res)=>{
     UID=req.body.UID
-    console.log(UID)
+    // console.log(UID)
     db.query(`SELECT U_Firstname, U_Lastname, U_Picture, U_Birthday, U_Gender FROM User WHERE UID=?;`,[UID],(err,results)=>{
         if (err) {
             console.error('Error fetching events:', err);

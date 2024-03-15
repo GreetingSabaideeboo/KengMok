@@ -8,14 +8,20 @@ import base64
 import numpy as np
 from numpy.linalg import norm
 from datetime import datetime
-# import pyttsx3
+import pyttsx3
 import subprocess
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 tracker=[]
-# engine = pyttsx3.init() 
+#soundpart
+engine = pyttsx3.init()
+TH_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_THAI"
+engine.setProperty('volume', 0.9)  # Volume 0-1
+engine.setProperty('rate', 120)  #148
+engine.setProperty('voice', TH_voice_id)
 
+#end sound part
 try:
     url = 'http://localhost:5001/peopleList'
     people_response = requests.get(url)
@@ -27,7 +33,32 @@ except Exception as e:
     print(e)
     
 
+# for mac
+# def makeSound(name,emo):
+#     print("emotion recive:",emo)
+   
+#     url = 'http://localhost:5001/getSound'
+#     myobj = {'emotion': emo}
+#     response = requests.post(url, json=myobj)
+#     text=""
+#     if response.status_code == 200:
+#         data = response.json()
+#         lenEmotion = len(data)
+        
+#         if lenEmotion > 0:
+#             num = random.randint(0, lenEmotion - 1)
+#             text = data[num]['text']
+#             print(text)
+#         else:
+#             print("Error: No data received from the API")
+#     else:
+#         print(f"Error: {response.status_code}")
+    
+    
+#     greeting = "sa wad dee krub "  +name +text
+#     subprocess.call(['say', greeting])
 
+#for windows
 def makeSound(name,emo):
     print("emotion recive:",emo)
    
@@ -50,8 +81,9 @@ def makeSound(name,emo):
     
     
     greeting = "sa wad dee krub "  +name +text
-    subprocess.call(['say', greeting])
-
+    engine.say(greeting)
+    engine.runAndWait()
+    # subprocess.call(['say', greeting])
     
 def calculate_age(birthday_str):
     """Calculate age given a birthday."""

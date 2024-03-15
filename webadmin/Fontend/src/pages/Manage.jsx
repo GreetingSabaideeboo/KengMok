@@ -1,158 +1,9 @@
-// import React, { useState, useRef, useEffect } from "react";
-// import { Link, useParams, useNavigate } from 'react-router-dom';
-// import Axios from "axios";
-// import axios from "axios";
-// import "../css/manage.css";
 
-
-// function Works() {
-//   const navigate = useNavigate();
-//   const [searchTerm, setSearchTerm] = useState("");
-//   let people;
-//   // let data;
-//   const peopleList = () => {
-//     console.log("active")
-//     Axios.get("http://localhost:5001/peopleList"
-//     ).then((Response) => {
-//       people = Response.data.peopleList
-//       Show()
-//     })
-//     // Axios.get('http://localhost:5001/getPicture'
-//     // ).then((Response) => {
-//     //   data = Response
-//     //   console.log(data)
-//     //   Show()
-//     // })
-
-//   }
-
-
-//   document.body.style.overflow = "auto";
-
-//   const Show = async () => {
-//     console.log("Show()");
-//     const listContainer = document.getElementById('List');
-//     listContainer.innerHTML=""
-//     const { data } = await axios.get('http://localhost:5001/getPicture');
-//     for (const person of people) {
-
-//       const Firstname = document.createElement('li');
-//       const Lastname = document.createElement('li');
-//       const Gender = document.createElement('li');
-//       const Birthday = document.createElement('li');
-//       const pic = document.createElement('img');
-//       const hr = document.createElement('hr');
-//       const btnContainer = document.createElement('div');
-//       const editBtn = document.createElement('butedit');
-//       const deleteBtn = document.createElement('butdelete');
-
-//       btnContainer.classList.add('btn-container');
-//       editBtn.classList.add('butedit');
-//       deleteBtn.classList.add('butdelete');
-//       for (const uid of data.folders) {
-//         if (uid.folderName == person.UID) {
-
-//           // console.log(uid)
-//           // console.log(uid.images[0].imageBase64)
-
-//           const imageBase64 = uid.images[0].imageBase64;
-//           pic.src = `data:${uid.images[0].mimeType};base64,${imageBase64}`;
-//           pic.src = `data:${data.folders[0].images[0].mimeType};base64,${imageBase64}`;
-
-//         }
-//       }
-//       // pic.src = `data:${data.folders[0].images[0].mimeType};base64,${imageBase64}`;
-//       var x = document.createElement("BUTTON");
-//       x.id = person.UID
-//       x.addEventListener("click", () => check(person.UID));
-//       x.className = "edit-button";
-//       var te = document.createTextNode("Edit");
-//       x.appendChild(te);
-
-//       //delete button
-//       var y = document.createElement("BUTTON");
-//       y.id = person.UID
-//       y.addEventListener("click", () => deLete(person.UID)); // อย่าลืมเพิ่มลบคน
-//       y.className = "delete-button";
-//       var td = document.createTextNode("Delete");
-//       y.appendChild(td);
-
-//       // Add content to the list item
-//       Firstname.textContent = `Firstname: ${person.U_Firstname}`;
-//       Lastname.textContent = `Lastname: ${person.U_Lastname}`;
-//       Gender.textContent = `Gender: ${person.U_Gender}`;
-//       Birthday.textContent = `Birthday: ${person.U_Birthday}`;
-
-//       // Append the list item to the list container
-
-//       listContainer?.appendChild(Firstname);
-//       listContainer?.appendChild(Lastname);
-//       listContainer?.appendChild(Gender);
-//       listContainer?.appendChild(Birthday);
-//       listContainer?.appendChild(pic)
-//       listContainer?.appendChild(x);
-//       // listContainer?.appendChild(hr);
-//       listContainer?.appendChild(y);
-//     }
-//   }
-
-//   const check = (UID) => {
-//     sessionStorage.setItem("editID",UID)
-//     navigate("/editUser");
-//   }
-//   const deLete = async (UID) => {
-//     if (confirm("Delete User " + UID + "?") == true) {
-//       try {
-//         const response = await axios.post('http://localhost:5001/changeStatus', { uid: UID });
-//         // console.log(response.data);
-//         peopleList()
-//       } catch (error) {
-//         console.error('Error during axios request:', error);
-//       }
-//     } else {
-//       alert("Cancel");
-//     }
-//   }
-//   const handleSearchChange = (e) => {
-//     setSearchTerm(e.target.value);
-//   };
-
-//   useEffect(() => {
-//     console.log("use");
-//     peopleList()
-// }, []);
-
-//   return (
-//     <body>
-//       <div className="containerr">
-
-//       <input
-//         type="search"
-//         className="searchbar"
-//         placeholder="Enter student's name to search"
-//         onChange={handleSearchChange}
-//         required
-//       />
-//         <button type="submit" className="butsearch">Search</button>
-//         <Link to={"/addcrop"} className="butaddmem">Add Student</Link>
-//         {/* <Link to={"/emotions"} className=" butemotion">Emotions</Link> */}
-//         {/* <button onClick={peopleList} className="butq">Query</button> */}
-
-//       </div>
-//       <div className="box-student">
-//         <ul id="List" className="list"></ul>
-//       </div>
-
-
-//     </body>
-//   );
-// }
-
-// export default Works;
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import "../css/manage.css";
+// import "../css/manage.css";
+import '../index.css';
 
 function Works() {
   const navigate = useNavigate();
@@ -170,6 +21,10 @@ function Works() {
     };
     fetchPeople();
   }, []);
+  const edit = (UID) => {
+    sessionStorage.setItem("editID", UID)
+    navigate("/editUser");
+  }
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -177,39 +32,64 @@ function Works() {
 
   const filteredPeople = searchTerm
     ? people.filter(person =>
-        person.U_Firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        person.U_Lastname.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      person.U_Firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.U_Lastname.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : people;
 
   return (
-  <div><div><input
-  type="search"
-  className="searchbar"
-  placeholder="Enter student's name to search"
-  onChange={handleSearchChange}
-  required
-/></div>
-  <div className="containerr">
-    
-    <button type="submit" className="butsearch">Search</button>
-    <Link to="/addcrop" className="butaddmem">Add Student</Link>
+    <div>
+      <div className="containerr flex flex-col items-center w-full">
+        <div className="my-5 flex w-4/6 "> <input
+          type="search"
+          className="searchbar w-full rounded-3xl mx-5 text-center"
+          placeholder="Enter student's name to search"
+          onChange={handleSearchChange}
+          required
+        />
+          {/* <button type="submit" className="butsearch ">Search</button> */}
+          <Link to="/addcrop" className="butaddmem w-1/6 bg-green-500 text-white px-4 py-2 rounded-md font-extrabold hover:bg-green-300">Add Student</Link>
+        </div>
 
-    <div className="box-student">
-      <ul id="List" className="list">
-        {filteredPeople.map((person, index) => (
-          <li key={index} className="person-info">
-            {/* Display details */}
-            Firstname: {person.U_Firstname}
-            Lastname: {person.U_Lastname}
-            <img src={`data:image/jpeg;base64,${person.imageBase64}`} alt="profile" />
-            {/* Other details */}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div></div>
-    
+        <div className="box-student">
+          <ul id="List" className="list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+            {filteredPeople.map((person, index) => (
+              <a onClick={() => edit(person.UID)} className="text-black">
+                <li key={index} className="person-info flex flex-col bg-white rounded-lg shadow-lg p-4 space-y-2">
+                  <div className="text-xl space-y-2">
+                    <div>Firstname: {person.U_Firstname}</div>
+                    <div>Lastname: {person.U_Lastname}</div>
+                    <div>Gender: {person.U_Gender}</div>
+                    <div>Birthday: {person.U_Birthday}</div>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <img className="w-full h-64 object-cover rounded-md justify-self-center" src={`${person.U_PictureTitle}`} alt="profile" />
+                  </div>
+
+
+                  {/* <div className="flex justify-around mt-2">
+                <button
+                  className="bg-yellow-400 px-4 py-2 rounded-lg border-solid border-black hover:bg-yellow-300 hover:text-black"
+                  onClick={() => edit(person.UID)} // ใช้ arrow function ที่นี่
+                >
+                  Edit
+                </button>
+                <button
+                  className="bg-red-400 px-4 py-2 rounded-lg border-solid border-black hover:bg-red-300 hover:text-black"
+                  onClick={() => deLete(person.UID)} >
+                  Delete
+                </button>
+              </div> */}
+                </li>
+              </a>
+
+            ))}
+          </ul>
+
+
+        </div>
+      </div></div>
+
   );
 }
 

@@ -62,20 +62,24 @@ def calculate_age(birthday_str):
 
 def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_string,Time):
     """Find a person by UID and do something with their information."""
-    if UID!=None:
-        people = people_response.json()
-        for person in people['peopleList']:
-            if person['UID'] == UID:
-                name=person['U_Firstname']
-                # Assuming you want to log or print the person's details along with the age
-                if age==0:
+    name=""
+    
+    try:
+        if UID!=None:
+            people = people_response.json()
+            for person in people['peopleList']:
+                if person['UID'] == UID:
+                    name=person['U_Firstname']
                     age = calculate_age(person['U_Birthday'])
-                else:
-                    pass
-    else:
-        name=""
-    print(name)
-    makeSound(name,emotion)           
+                    makeSound(name,emotion)        
+        else:
+            makeSound(name,emotion)   
+            name="stranger"
+    except Exception as e:
+        print(e)
+    # print(name)
+    print("age:",age)
+    # makeSound(name,emotion)           
     environmentB64_string = environmentEncoded_string.decode() 
     faceB64_string = faceEncoded_string.decode() 
     # print(UID,gender,age,emotion,environmentB64_string,faceB64_string)
@@ -97,7 +101,7 @@ while True:
         # frame = cv2.imread("pic.jpg")
         Time=time.time()
         current_time = datetime.now()
-        ch = cv2.imread("./picture/hee.jpg")
+        
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(200, 200))
         # print(faces)
@@ -112,7 +116,7 @@ while True:
             count=0
             
             for idx, trac in enumerate(tracker):              
-                print(embedding,trac['pic'])      
+                # print(embedding,trac['pic'])      
                 cosine = np.dot(embedding,trac['pic'])/(norm(embedding)*norm(trac['pic']))
                 if (Time-trac['time'])>10:
                     tracker.pop(idx)
@@ -313,7 +317,7 @@ while True:
                     if predictUID!=None:
                         current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")
                         saveEvent(predictUID, gender, 0, emotion, environmentEncoded_string, faceEncoded_string, current_time_iso)
-                        print(predictUID,emotion,"asdfasdf")      
+                        print(predictUID,emotion)      
                     else:
                         age=DeepFace.analyze(frame,actions=("age"))
                         current_time_iso = current_time.strftime("%Y-%m-%d %H:%M:%S")

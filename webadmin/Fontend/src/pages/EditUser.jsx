@@ -61,8 +61,9 @@ function EditUser() {
           }
         } else {
           alert("Cancel");
+          navigate('/manage');
         }
-    }
+      }
     
 
     return (
@@ -86,7 +87,7 @@ function EditUser() {
                         <input className='editdate' type="date" name="U_Birthday" value={user.U_Birthday} onChange={handleInputChange}  />
                     
                         <button className='butsave' type="submit" >Update</button>
-                        <button className='butcancel' onClick={()=>{deLete(sessionStorage.getItem("editID"))}}>Delete</button>
+                        <button className='butdelete' onClick={()=>{deLete(sessionStorage.getItem("editID"))}}>Delete</button>
                     </div>
                    
                 </form>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import '../css/history.css'
 
 function History() {
   const [events, setEvents] = useState([]);
@@ -33,16 +34,16 @@ function History() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">History</h2>
-      <div className="mb-4">
+      {/* <h2 className="text-2xl font-bold mb-4">History</h2> */}
+      <div className="top-box">
         <input
           type="text"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="searchhis"
           placeholder="Search by name..."
           onChange={handleSearchChange}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-5 mr-5">
         {filteredEvents.map((event, index) => (
           <div key={index} className="bg-white shadow-md rounded-lg p-4">
             <div className="font-bold text-lg mb-2">EID: {event.EID}</div>

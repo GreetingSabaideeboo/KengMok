@@ -1,0 +1,20 @@
+.top-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+input.searchhis {
+    background-color: white;
+    text-align: center;
+    background-color: #ffffff;
+    width: 35%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.09);
+}

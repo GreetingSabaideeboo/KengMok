@@ -55,7 +55,6 @@ function EditUser() {
         if (confirm("Delete User " + UID + "?") == true) {
           try {
             const response = await Axios.post('http://localhost:5001/changeStatus', { uid: UID });
-            // console.log(response.data);
             peopleList()
           } catch (error) {
             console.error('Error during axios request:', error);
@@ -63,7 +62,7 @@ function EditUser() {
         } else {
           alert("Cancel");
         }
-      }
+    }
     
 
     return (

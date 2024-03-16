@@ -45,14 +45,14 @@ function Works() {
         <div className="box-top">
           
         </div>
-        <div className="my-5 flex w-4/6 "> <input
-          type="search"
-          className="searchbar w-full rounded-3xl mx-5 text-center"
-          placeholder="Enter student's name to search"
-          onChange={handleSearchChange}
-          required
-        />
-          {/* <button type="submit" className="butsearch ">Search</button> */}
+        <div className="my-5 flex w-4/6 "> 
+          <input
+            type="search"
+            className="searchbar w-full rounded-3xl mx-5 text-center"
+            placeholder="Enter student's name to search"
+            onChange={handleSearchChange}
+            required
+          />
           <Link to="/addcrop" className="butaddmem">Add Student</Link>
         </div>
 

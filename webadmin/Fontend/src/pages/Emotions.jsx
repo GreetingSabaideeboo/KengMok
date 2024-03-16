@@ -64,21 +64,34 @@ function Emotions () {
         }
     }
     const Delete = async (SoundsID) => {
-        if (confirm("Are you sure you want to delete this emotion?") == true) {
-          await Axios({
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Axios({
             method: 'post',
             url: 'http://localhost:5001/deletesound',
             data: {
-              'SoundsID':SoundsID // replace this with your actual condition for deletion
+              'SoundsID': SoundsID // replace this with your actual condition for deletion
             }
           }).then((response) => {
             console.log(response.data);
-            
-
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+            emotionlist();
           });
         }
-        emotionlist();
-      }
+      });
+    };
       useEffect(()=>{
         emotionlist()
       })

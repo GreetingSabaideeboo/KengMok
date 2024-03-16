@@ -22,6 +22,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 def camera_stream():
     ret, frame = cam.read()
+    frame = cv2.flip(frame, 90) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection

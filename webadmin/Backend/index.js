@@ -30,7 +30,7 @@ db.connect((err) => {
     console.log('Connected to the database successfully');
 });
 
-app.get('/', (req, res) => { 
+app.get('/', (req, res) => {
     res.send("still");
 });
 
@@ -66,10 +66,10 @@ app.post('/add', (req, res) => {
         return res.status(400).json({ error: 'Image data is required' });
     }
 
-    const { firstname, lastname, gender, birth ,Pictitle} = req.body;
+    const { firstname, lastname, gender, birth, Pictitle } = req.body;
 
     db.query('INSERT INTO `User`(`U_Firstname`, `U_Lastname`, `U_Birthday`, `U_Gender`, `U_Status`,`U_PictureTitle`) VALUES (?,?,?,?,1,?)',
-        [firstname, lastname, birth, gender,Pictitle], (error, results) => {
+        [firstname, lastname, birth, gender, Pictitle], (error, results) => {
             if (error) {
                 console.error('Error executing SQL query:', error);
                 return res.status(500).json({ error: 'Internal Server Error' });
@@ -101,10 +101,10 @@ app.post('/add', (req, res) => {
             });
 
             if (imageSaveErrorOccurred) {
-                
+
             } else {
                 // Assuming images are saved successfully, and database is updated as needed
-                
+
             }
 
             uid = results.insertId
@@ -184,17 +184,18 @@ app.post('/savePicKios', (req, res) => {
     // Assuming your `Event` table structure matches the column names here
     // Replace '[value-x]' with actual values you want to insert
     const query = 'INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`,`Age`, `EDateTime`) VALUES (?, ?, ?, ?, ?, ?,?)';
-                    // INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `Age`, `EDateTi÷me`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
+    // INSERT INTO `Event`(`UID`, `FacePicture`, `EnvironmentPicture`, `Gender`, `Emotion`, `Age`, `EDateTi÷me`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
     // Ensure to pass the `time` variable from the request to the query
-    db.query(query, [uid, face, image, gender, emotion, time,age], (error, results, fields) => {
+    // ลำดับของพารามิเตอร์ควรเป็น uid, face, image, gender, emotion, age, time
+    db.query(query, [uid, face, image, gender, emotion, age, time], (error, results, fields) => {
         if (error) {
-            // console.error('Error executing SQL query:', error);
+            console.error('Error executing SQL query:', error);
             return res.status(500).json({ error: 'Internal Server Error' });
         } else {
-            // console.log('Event saved successfully:', results.insertId);
             return res.status(200).send('Event and images received and saved successfully!');
         }
     });
+
 });
 
 
@@ -256,7 +257,7 @@ app.post('/addemotion', (req, res) => {
 });
 
 app.get('/emotionlist', (req, res) => {
-    db.query('SELECT `SoundsID`, `emotion`, `text` FROM `emotion` WHERE 1;' , (error, results,fields) => {
+    db.query('SELECT `SoundsID`, `emotion`, `text` FROM `emotion` WHERE 1;', (error, results, fields) => {
         if (error) {
             console.error('Error executing SQL query:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -294,36 +295,36 @@ app.get('/kios', (req, res) => {
 });
 
 
-app.post('/getSound',(req,res)=>{
-    emotion=req.body.emotion
-    db.query(`SELECT text FROM Emotion WHERE emotion=?;`,[emotion],(err,results)=>{
+app.post('/getSound', (req, res) => {
+    emotion = req.body.emotion
+    db.query(`SELECT text FROM Emotion WHERE emotion=?;`, [emotion], (err, results) => {
         if (err) {
             console.error('Error fetching events:', err);
             res.status(500).send('Error fetching events');
             return;
         }
-        else{
+        else {
             res.json(results);
         }
 
     })
 
 })
-app.post('/getUser',(req,res)=>{
-    UID=req.body.UID
+app.post('/getUser', (req, res) => {
+    UID = req.body.UID
     // console.log(UID)
-    db.query(`SELECT U_Firstname, U_Lastname, U_Picture, U_Birthday, U_Gender FROM User WHERE UID=?;`,[UID],(err,results)=>{
+    db.query(`SELECT U_Firstname, U_Lastname, U_Picture, U_Birthday, U_Gender FROM User WHERE UID=?;`, [UID], (err, results) => {
         if (err) {
             console.error('Error fetching events:', err);
             res.status(500).send('Error fetching events');
             return;
         }
-        else{
+        else {
             res.json(results);
         }
 
     })
-    
+
 
 })
 
@@ -344,8 +345,8 @@ app.post('/updateUser', (req, res) => {
     );
 });
 
-app.get('/getAllEvent',(req,res)=>{
-    db.query('SELECT * FROM `Event` INNER JOIN `User` ON Event.UID=User.UID ',(err,results)=>{
+app.get('/getAllEvent', (req, res) => {
+    db.query('SELECT * FROM `Event` INNER JOIN `User` ON Event.UID=User.UID ', (err, results) => {
         if (err) {
             console.error("Error query event", err);
             res.status(500).send('Error query event');

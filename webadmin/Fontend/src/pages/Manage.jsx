@@ -44,18 +44,16 @@ function Works() {
       <div className="containerr flex flex-col items-center w-full">
         <div className="managebox">
           <div className="top-emotion">Students Manager</div>
-          {/* <div className="secondmanagebox"> */}
             <div className="my-5 flex w-4/6 "> 
               <input
                 type="search"
-                className="searchbar w-full rounded-3xl mx-5 text-center"
+                className="searchbar w-full rounded-3xl mx-5 text-center shadow"
                 placeholder="Enter student's name to search"
                 onChange={handleSearchChange}
                 required
               />
               <Link to="/addcrop" className="butaddmem">Add Student</Link>
             </div>
-          {/* </div> */}
         </div>
         <div className="box-student">
           <ul id="List" className="list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 ">

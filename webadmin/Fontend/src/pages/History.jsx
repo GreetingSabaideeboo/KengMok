@@ -34,14 +34,16 @@ function History() {
 
   return (
     <div>
-      {/* <h2 className="text-2xl font-bold mb-4">History</h2> */}
-      <div className="top-box">
-        <input
-          type="text"
-          className="searchhis"
-          placeholder="Search by name..."
-          onChange={handleSearchChange}
-        />
+      <div className="containerr flex flex-col items-center w-full">
+        <div className="hisbox">
+            <div className="top-emotion">Events history</div>
+                <input
+                  type="text"
+                  className="searchhis"
+                  placeholder="Enter student's name to search"
+                  onChange={handleSearchChange}
+                />
+          </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-5 mr-5">
         {filteredEvents.map((event, index) => (

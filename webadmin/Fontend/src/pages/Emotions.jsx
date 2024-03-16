@@ -100,9 +100,11 @@ function Emotions () {
         <>
         <div className="container-emotion">
             <div className="second-box">
-                <div className="top-emotion">Emotions Manager</div>
+                <div className="top-emotion">Emotions</div>
+                <div className="top-emotion">&nbsp;</div>
+                <div className="top-emotion">Manager</div>
                 <div className="space"></div>
-                <Link to={"/addsound"} className="butaddsound">Add</Link>
+                <Link to={"/addsound"} className="butaddsound">Add text response</Link>
                 {/* <div className="space"> </div> */}
                 {/* <button onClick={emotionlist} className="butlistemo">List</button> */}
             </div> 

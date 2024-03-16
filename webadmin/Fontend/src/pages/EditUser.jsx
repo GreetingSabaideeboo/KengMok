@@ -1,7 +1,9 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import '../index.css';
+// import '../index.css';
+import Swal from 'sweetalert2';
+import '../css/edit.css';
 
 function EditUser() {
     const [user, setUser] = useState({ U_Firstname: '', U_Lastname: '', U_Gender: '', U_Birthday: '' }); // ปรับปรุงให้เก็บข้อมูลเป็น object
@@ -32,7 +34,11 @@ function EditUser() {
         .then((response) => {
             console.log(response.status)
             if(response.status==200){
-                alert("Update Success")
+                Swal.fire({
+                    title: "All Done!",
+                    text: "Updated Informations",
+                    icon: "success"
+                  });
                 navigate('/manage');
             }
             // console.log('User updated successfully:', response);
@@ -63,32 +69,25 @@ function EditUser() {
     return (
         
         <div>
-            <div className='text-4xl font-extrabold text-center my-3'>Edit Info</div>
-            <div className='flex justify-center items-start min-h-screen '>
-            <div className='bg-white w-5/6 rounded-3xl p-8 '>
-                <form onSubmit={handleSubmit} className='space-y-4'>
-                    <div>
-                        <label>Firstname</label>
-                        <input type="text" name="U_Firstname" value={user.U_Firstname} onChange={handleInputChange} className='w-full mt-2' />
-                    </div>
-                    <div>
-                        <label>Lastname</label>
-                        <input type="text" name="U_Lastname" value={user.U_Lastname} onChange={handleInputChange} className='w-full mt-2' />
-                    </div>
-                    <div>
-                        <label>Gender</label>
-                        <select name="U_Gender" value={user.U_Gender} onChange={handleInputChange} className='w-full mt-2 border-2'>
+            <div className='topadd-edit'>Edit Info</div>
+            <div className='editbackground'>
+            <div className='container-edit'>
+                <form onSubmit={handleSubmit} className='box'>
+                    <div className='editlist'>
+                        <div className='textF'>Firstname</div>
+                        <input className='boxF' type="text" name="U_Firstname" value={user.U_Firstname} onChange={handleInputChange} />
+                        <div className='textL'>Lastname</div>
+                        <input className='boxL' type="text" name="U_Lastname" value={user.U_Lastname} onChange={handleInputChange}  />
+                        <div className='textF'>Gender</div>
+                        <select className='editgender' name="U_Gender" value={user.U_Gender} onChange={handleInputChange} >
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
-                    </div>
-                    <div>
-                        <label>Birthday</label>
-                        <input type="date" name="U_Birthday" value={user.U_Birthday} onChange={handleInputChange} className='w-full mt-2 border-2' />
-                    </div>
-                    <div className='flex justify-between'> 
-                        <button type="submit" className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-400'>Save Changes</button>
-                    <button className='bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-400' onClick={()=>{deLete(sessionStorage.getItem("editID"))}}>Delete User</button>
+                        <div className='textF'>Birthday</div>
+                        <input className='editdate' type="date" name="U_Birthday" value={user.U_Birthday} onChange={handleInputChange}  />
+                    
+                        <button className='butsave' type="submit" >Update</button>
+                        <button className='butcancel' onClick={()=>{deLete(sessionStorage.getItem("editID"))}}>Delete</button>
                     </div>
                    
                 </form>

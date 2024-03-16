@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 // import "../css/manage.css";
 import '../index.css';
+import '../css/newmanage.css';
+
 
 function Works() {
   const navigate = useNavigate();
@@ -40,6 +42,9 @@ function Works() {
   return (
     <div>
       <div className="containerr flex flex-col items-center w-full">
+        <div className="box-top">
+          
+        </div>
         <div className="my-5 flex w-4/6 "> <input
           type="search"
           className="searchbar w-full rounded-3xl mx-5 text-center"
@@ -48,14 +53,14 @@ function Works() {
           required
         />
           {/* <button type="submit" className="butsearch ">Search</button> */}
-          <Link to="/addcrop" className="butaddmem w-1/6 bg-green-500 text-white px-4 py-2 rounded-md font-extrabold hover:bg-green-300">Add Student</Link>
+          <Link to="/addcrop" className="butaddmem">Add Student</Link>
         </div>
 
         <div className="box-student">
-          <ul id="List" className="list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+          <ul id="List" className="list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 ">
             {filteredPeople.map((person, index) => (
               <a onClick={() => edit(person.UID)} className="text-black">
-                <li key={index} className="person-info flex flex-col bg-white rounded-lg shadow-lg p-4 space-y-2">
+                <li key={index} className="person-info flex flex-col bg-white rounded-lg shadow-lg p-4 space-y-2 ">
                   <div className="text-xl space-y-2">
                     <div>Firstname: {person.U_Firstname}</div>
                     <div>Lastname: {person.U_Lastname}</div>

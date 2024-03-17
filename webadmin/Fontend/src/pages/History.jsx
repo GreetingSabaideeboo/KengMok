@@ -5,11 +5,13 @@ import '../css/history.css'
 function History() {
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [modal, setModal] = useState(false);
+  const [modalImgSrc, setModalImgSrc] = useState('');
   const fetchEvent = () => {
     axios.get('http://localhost:5001/getAllEvent')
       .then((response) => {
-        setEvents(response.data); // อัปเดต state ด้วยข้อมูลจาก API
+        setEvents(response.data);
+        console.log("data is:", events)// อัปเดต state ด้วยข้อมูลจาก API
       })
       .catch((error) => {
         console.error('Error fetching events:', error);
@@ -31,19 +33,28 @@ function History() {
       event.U_Firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.U_Lastname.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const openModal = (imgSrc) => {
+    setModalImgSrc(imgSrc);
+    setModal(true);
+  };
+
+  // ฟังก์ชั่นสำหรับการปิด Modal
+  const closeModal = () => {
+    setModal(false);
+  };
 
   return (
     <div>
       <div className="containerr flex flex-col items-center w-full">
         <div className="hisbox">
-            <div className="top-emotion">Events history</div>
-                <input
-                  type="text"
-                  className="searchhis"
-                  placeholder="Enter student's name to search"
-                  onChange={handleSearchChange}
-                />
-          </div>
+          <div className="top-emotion">Events history</div>
+          <input
+            type="text"
+            className="searchhis"
+            placeholder="Enter student's name to search"
+            onChange={handleSearchChange}
+          />
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-5 mr-5">
         {filteredEvents.map((event, index) => (
@@ -53,15 +64,42 @@ function History() {
             <div className="text-gray-700 mb-2">Emotion: {event.Emotion}</div>
             <div className="text-gray-700 mb-2">Gender: {event.Gender}</div>
             <div className="text-gray-700 mb-2">Age: {event.Age}</div>
-            <div className="mb-2">
-              FacePicture: <img className="w-full h-48 object-cover rounded-md mb-2" src={`data:image/png;base64,${event.FacePicture}`} alt="Face" />
+            <div className="text-gray-700 mb-2">
+              Time: {
+                new Date(event.EDateTime).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  weekday: 'long',
+                })} at {
+                new Date(event.EDateTime).toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: true
+                })
+              }
             </div>
             <div className="mb-2">
-              EnvironmentPicture: <img className="w-full h-48 object-cover rounded-md mb-2" src={`data:image/png;base64,${event.EnvironmentPicture}`} alt="Environment" />
+              FacePicture: <img
+                className="h-48 object-cover rounded-md mb-2"
+                src={`data:image/png;base64,${event.FacePicture}`}
+                alt="Face"
+                onClick={() => openModal(`data:image/png;base64,${event.FacePicture}`)} // เปลี่ยนจาก onMouseEnter เป็น onClick
+              />
+            </div>
+
+            <div className="mb-2">
+              EnvironmentPicture: <img className="w-full h-48 object-cover rounded-md mb-2" src={`data:image/png;base64,${event.EnvironmentPicture}`} alt="Environment" onClick={() => openModal(`data:image/png;base64,${event.EnvironmentPicture}`)} />
             </div>
           </div>
         ))}
       </div>
+      {modal && (
+        <div className="modal" onClick={closeModal}>
+          <img className="modal-content modal-img" src={modalImgSrc} alt="Modal" />
+        </div>
+      )}
     </div>
   );
 }

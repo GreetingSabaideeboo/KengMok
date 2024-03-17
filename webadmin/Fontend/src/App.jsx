@@ -43,14 +43,16 @@ function App() {
                   <Route path="/addsound" element={<Addsound/>} />
                   <Route path="/editUser" element={<EditUser/>} />
                   <Route path="/history" element={<History/>} />
-                </Routes>
                 
+                </Routes>
+                <Footer />
               </>
             }
           />
         </Routes>
+        
       </HashRouter>
-      <Footer />
+      
     </div>
   );
 }

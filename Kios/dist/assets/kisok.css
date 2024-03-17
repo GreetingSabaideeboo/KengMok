@@ -14,7 +14,7 @@
 .cam-box{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     
    
 }
@@ -43,18 +43,24 @@
 }
 body {
     background: #FCF7E8;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .box-text {
+    display: flex;
+    flex-direction: row;
+    width: 42%;
     background-color: #faedcb;
-    border-radius: 20px;
+    border-radius: 55px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    padding: 40px 200px;
+    padding-top: 35px;
+    padding-bottom: 35px;
     margin-top: 20px;
     margin-left: 50px;
     margin-bottom: 20px;
     text-align: left;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .li {
@@ -63,3 +69,13 @@ body {
     font-weight: bolder;
 }
 
+.cam {
+    display: flex;
+    justify-self: flex-start;
+}
+
+img {
+    border-radius: 20px;
+    max-height: 150px;
+    max-width:  auto;
+}

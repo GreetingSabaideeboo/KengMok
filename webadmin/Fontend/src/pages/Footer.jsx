@@ -1,6 +1,6 @@
 function Footer(){
     return(
-        <div className="mb-2">
+        <div className="footer">
         <footer>
         <p className="footer-by">
           A project by{" "}

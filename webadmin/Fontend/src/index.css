@@ -115,9 +115,7 @@ a {
   color: var(--text-primary);
 }
 
-/* a:hover {
-  color: var(--bg-terniary);
-} */
+
 
 .signature {
   justify-content:center;

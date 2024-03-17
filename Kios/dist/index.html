@@ -15,13 +15,14 @@
         </div>
     </marquee>
 </div>
-
+<div class="display">
     <img class="camfeed" src="http://localhost:8080/video_feed" alt="Camera Feed">
-
-<div class="event">
-    <div id="latest-events-container">
-        <!-- Latest events will be inserted here -->
+    <div class="">
+        <div id="latest-events-container">
+            <!-- Latest events will be inserted here -->
+        </div>
     </div>
+    
 </div>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -60,6 +61,7 @@
     
                         
                         img=document.createElement('img')
+                        img.classList.add("imglist")
                         img.src = `data:image/jpeg;base64,${event.FacePicture}`;
                         const divBox = document.createElement('div');
                         
@@ -83,7 +85,7 @@
             }
     
             // Fetch latest events every 5 seconds (adjust as needed)
-            // setInterval(fetchLatestEvents, 5000);
+            setInterval(fetchLatestEvents, 5000);
     
             // Initial fetch on page load
             fetchLatestEvents();

@@ -103,7 +103,7 @@ def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_
                     age = calculate_age(person['U_Birthday'])
                     makeSound(name,emotion)        
         else:
-            UID="stranger"
+            UID="0"
             makeSound(name,emotion)   
             age=age[0]['age']
             # print(age)

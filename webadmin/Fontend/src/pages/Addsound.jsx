@@ -34,7 +34,7 @@ const Addsound = () => {
     }
 
     axios
-      .post("http://localhost:5001/addemotion", {
+      .post("http://localhost:6957/addemotion", {
         emotion: emotion,
         text: text,
       })

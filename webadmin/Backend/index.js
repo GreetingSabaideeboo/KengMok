@@ -17,9 +17,12 @@ app.use(cors());
 app.use(express.json({ limit: '500mb' }));
 
 const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "",
+    // user: "root", 
+    user: "user",
+    // host: "localhost",
+    host: "db",
+    // password: "",
+    password: "password",
     database: "Greeting"
 });
 
@@ -376,8 +379,8 @@ db.query(query, (error, results) => {
     res.json(results);
 });
 })
-  
-const port = 5001;
+
+const port = 6957;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

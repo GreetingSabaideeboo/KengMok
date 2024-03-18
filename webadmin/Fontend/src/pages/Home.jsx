@@ -15,9 +15,9 @@ const Home = () => {
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        const emotionResponse = await axios('http://localhost:5001/getEventForHome');
+        const emotionResponse = await axios('http://localhost:6957/getEventForHome');
         processEmotionData(emotionResponse.data);
-        const eventResponse = await axios('http://localhost:5001/getEventMount');
+        const eventResponse = await axios('http://localhost:6957/getEventMount');
         processEventDistribution(eventResponse.data);
       } catch (error) {
         console.error('Failed to fetch event data:', error);
@@ -97,7 +97,7 @@ const Home = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'right',
+        position: 'bottom',
       },
       title: {
         display: true,
@@ -124,7 +124,7 @@ const Home = () => {
 
           <p className='text-xl font-extrabold'>{totalUser} People</p>
         </div>
-        <div className=' h-[50%] bg-white rounded-3xl text-center mt-5'>
+        <div className=' h-70 bg-white rounded-3xl text-center mt-5'>
           {/* <h2>Emotion Today</h2> */}
           <Pie data={pieData} options={options} />
         </div>

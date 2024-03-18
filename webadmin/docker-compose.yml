@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  web-backend:
+    build: ./backend
+    image: peem-web-server-image
+    container_name: peem-web-server-container
+    ports:
+      - "6957:6957"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql://user:password@db/Greeting"
+  web-frontend:
+    build: ./fontend
+    image: peem-web-client-image
+    container_name: peem-web-client-container
+    ports:
+      - "6958:80"
+  db:
+    image: mysql:5.7
+    container_name: bike-peem-db-container
+    ports:
+      - "6959:3306"
+    environment:
+      MYSQL_DATABASE: 'Greeting'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - db-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bike-peem-phpmyadmin-container
+    ports:
+      - "6960:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: user
+      PMA_PASSWORD: password
+    depends_on:
+      - db
+volumes:
+  db-data:

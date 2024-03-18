@@ -9,6 +9,7 @@ const mime = require('mime-types');
 
 // import * as express from 'express';
 const jwt = require('jsonwebtoken');
+const { error } = require('console');
 const secret = 'AI-Project';
 
 app.use(cors());
@@ -356,6 +357,26 @@ app.get('/getAllEvent', (req, res) => {
         }
     })
 })
+app.get('/getEventForHome', (req, res) => {
+    const query = `SELECT EID, Gender, Emotion, Age, EDateTime FROM Event WHERE EDateTime >= CURDATE() AND EDateTime < ADDDATE(CURDATE(), 1);`;
+    db.query(query, (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: error.message });
+      }
+      res.json(results);
+    });
+  });
+
+app.get('/getEventMount',(req,res)=>{
+    const query = "SELECT EID, Gender, Emotion, Age, EDateTime FROM Event WHERE DATE_FORMAT(EDateTime, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m');";
+db.query(query, (error, results) => {
+    if (error) {
+        return res.status(500).json({ error: error.message });
+    }
+    res.json(results);
+});
+})
+  
 const port = 5001;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

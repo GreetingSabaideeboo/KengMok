@@ -15,9 +15,12 @@ import Emotions from "./pages/Emotions";
 import Addsound from "./pages/Addsound";
 import EditUser from "./pages/EditUser";
 import History from "./pages/History";
+import LineChart from "./pages/linechart";
 function App() {
   return (
     <div className="main-display">
+{/* <LineChart/> */}
+
       <Test/>
       <HashRouter>
         <Routes>

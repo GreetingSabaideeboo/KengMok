@@ -10,6 +10,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 HOST="localhost"
+# HOST="db"
 PORT=8080
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
@@ -26,7 +27,7 @@ def camera_stream():
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(300, 300))
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
     try:
         pass
         cv2.imwrite('pic.jpg',frame)

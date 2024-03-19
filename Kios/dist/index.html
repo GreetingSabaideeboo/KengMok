@@ -29,7 +29,7 @@
             async function fetchLatestEvents() {
                 console.log("active");
                 try {
-                    const response = await fetch('http://localhost:5001/kios');
+                    const response = await fetch('http://localhost:6956/kios');
                     const data = await response.json();
                     console.log("data is:",data);
                     const container = document.getElementById('latest-events-container');
@@ -85,7 +85,7 @@
             }
     
             // Fetch latest events every 5 seconds (adjust as needed)
-            setInterval(fetchLatestEvents, 5000);
+            setInterval(fetchLatestEvents, 1000);
     
             // Initial fetch on page load
             fetchLatestEvents();

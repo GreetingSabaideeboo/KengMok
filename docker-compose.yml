@@ -1,24 +1,34 @@
 version: '3.8'
 services:
-  web-backend:
-    build: ./backend
-    image: peem-web-server-image
-    container_name: peem-web-server-container
+  kiosk-frontend:
+    build: ./Kios
+    image: kiosk-client-image
+    container_name: kiosk-client-container
     ports:
-      - "6957:6957"
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql://user:password@db/Greeting"
+  web-backend:
+    build: ./webadmin/backend
+    image: server-image
+    container_name: server-container
+    ports:
+      - "6956:6956"
     depends_on:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
   web-frontend:
-    build: ./fontend
-    image: peem-web-client-image
-    container_name: peem-web-client-container
+    build: ./webadmin/fontend
+    image: client-image
+    container_name: client-container
     ports:
       - "6958:80"
   db:
     image: mysql:5.7
-    container_name: bike-peem-db-container
+    container_name: db-container
     ports:
       - "6959:3306"
     environment:
@@ -30,7 +40,7 @@ services:
       - db-data:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: bike-peem-phpmyadmin-container
+    container_name: phpmyadmin-container
     ports:
       - "6960:80"
     environment:

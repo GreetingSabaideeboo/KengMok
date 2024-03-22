@@ -19,4 +19,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "python","app.py","process.py" ]
+CMD [ "python","./app.py","./process.py" ]

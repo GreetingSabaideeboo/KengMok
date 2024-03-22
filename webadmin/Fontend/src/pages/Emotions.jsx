@@ -10,7 +10,7 @@ function Emotions () {
     const emotionlist = () => [
         Axios.get("http://localhost:6956/emotionlist"
         ).then((Response) => {
-            console.log(Response);
+            console.log(Response); 
             emotions = Response.data.emotionlist
             show()
             console.log(emotions)

@@ -81,7 +81,7 @@ def makeSound(name,emo):
         print(f"Error: {response.status_code}")
     
     
-    greeting = "สวัสดีวันอังคารอันโหดร้ายครับ"  +name +text
+    greeting = "สวัสดีในวันที่โหดร้ายนะครับ"  +name +text
     engine.say(greeting)
     engine.runAndWait()
     # subprocess.call(['say', greeting])

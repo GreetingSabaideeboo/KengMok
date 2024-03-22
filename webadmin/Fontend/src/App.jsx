@@ -16,6 +16,7 @@ import Addsound from "./pages/Addsound";
 import EditUser from "./pages/EditUser";
 import History from "./pages/History";
 import LineChart from "./pages/linechart";
+import Testt from "./pages/testt";
 function App() {
   return (
     <div className="main-display">
@@ -46,7 +47,7 @@ function App() {
                   <Route path="/addsound" element={<Addsound/>} />
                   <Route path="/editUser" element={<EditUser/>} />
                   <Route path="/history" element={<History/>} />
-                
+                  <Route path="/testt" element={<Testt/>} />
                 </Routes>
                 <Footer />
               </>

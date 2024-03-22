@@ -7,7 +7,7 @@
 .second-box {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     border-radius: 5px;
     align-items: center;
     margin-top: 50px;

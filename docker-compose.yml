@@ -11,7 +11,7 @@ services:
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
   web-backend:
-    build: ./webadmin/backend
+    build: ./webadmin/Backend
     image: server-image
     container_name: server-container
     ports:
@@ -21,7 +21,7 @@ services:
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
   web-frontend:
-    build: ./webadmin/fontend
+    build: ./webadmin/Fontend
     image: client-image
     container_name: client-container
     ports:

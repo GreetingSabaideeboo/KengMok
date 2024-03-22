@@ -83,7 +83,7 @@ function Emotions () {
         <div className="container-emotion">
             <div className="second-box">
                 <div className="top-emotion">Emotions manager</div>
-                <button Link="./Addsound"className="butaddsound">Add text response</button>
+                <Link to="./Addsound"className="butaddsound">Add text response</Link>
             </div>
         </div>
         <div className="box-list">

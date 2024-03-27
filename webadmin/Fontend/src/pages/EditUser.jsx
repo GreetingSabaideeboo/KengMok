@@ -51,6 +51,7 @@ function EditUser() {
         });
 
     };
+    
     const deLete = async (UID) => {
         if (confirm("Delete User " + UID + "?") == true) {
           try {

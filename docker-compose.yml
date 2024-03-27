@@ -5,11 +5,12 @@ services:
     image: kiosk-client-image
     container_name: kiosk-client-container
     ports:
-      - "6970:80"
+      - "6970:6970"
     depends_on:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
+    
   web-backend:
     build: ./webadmin/Backend
     image: server-image

@@ -1,24 +1,40 @@
-FROM python:latest
+# FROM python:latest
 
-ENV SERVER_IP=192.168.15.227 
+# # ENV SERVER_IP=192.168.15.227
 
-WORKDIR /app
+# WORKDIR /app
 
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
+# RUN apt-get update && apt-get install -y libgl1-mesa-glx
 
-RUN pip install fastapi uvicorn mysql-connector-python opencv-python-headless starlette pathlib jinja2
-RUN pip install opencv-python
-RUN pip install python-dotenv
-# RUN pip install deepface
-RUN pip install requests
-RUN pip install datetime
-RUN pip install pyttsx3
+# COPY requirement.txt ./
+# RUN pip install --no-cache-dir -r requirement.txt
+# COPY ./dist/index.html ./
+# COPY app.py /app/app.py
+# COPY process.py /app/process.py
+# COPY . .
 
-COPY requirement.txt ./
-RUN pip install --no-cache-dir -r requirement.txt
+# EXPOSE 6970
 
-COPY . .
+# CMD [ "python","app.py","process.py"]
+
+# For more information, please refer to https://aka.ms/vscode-docker-python
+FROM python:3.12-slim
 
 EXPOSE 6970
 
-CMD [ "python","app.py","process.py"]
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+# Install pip requirements
+COPY requirements.txt .
+RUN pip install -r requirements.txt \
+ && apt-get update && apt-get install -y libgl1 libglib2.0-0
+
+WORKDIR /app
+COPY . /app
+
+# CMD ["gunicorn", "--bind", "0.0.0.0:6970", "-k", "uvicorn.workers.UvicornWorker", "Kios.app:app"]
+CMD ["python","app.py","process.py"]

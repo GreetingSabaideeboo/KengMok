@@ -17,12 +17,11 @@ app.use(cors());
 app.use(express.json({ limit: '500mb' }));
 
 const db = mysql.createConnection({
-    // user: "root", 
+    // user: "root", //local
     user: "user",
-    // host: "localhost",
+    // host: "localhost", //local
     host: "db",
-    // host: "http://192.168.15.227",
-    // password: "",
+    // password: "",  //local
     password: "password",
     database: "Greeting"
 });

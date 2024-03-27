@@ -30,7 +30,7 @@ services:
     image: mysql:5.7
     container_name: db-container
     ports:
-      - "6959:6959"
+      - "6959:3306"
     environment:
       MYSQL_DATABASE: 'Greeting'
       MYSQL_USER: 'user'

@@ -20,7 +20,8 @@ const db = mysql.createConnection({
     // user: "root", 
     user: "user",
     // host: "localhost",
-    host: "db",
+    // host: "db",
+    host: "192.168.15.227",
     // password: "",
     password: "password",
     database: "Greeting"

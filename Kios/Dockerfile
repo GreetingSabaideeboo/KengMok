@@ -1,5 +1,7 @@
 FROM python:latest
 
+ENV SERVER_IP=192.168.15.227 
+
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y libgl1-mesa-glx

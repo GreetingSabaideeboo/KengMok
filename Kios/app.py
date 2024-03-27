@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 
 HOST="localhost"
 # HOST="db"
-PORT=8080
+PORT=6970
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 cam = cv2.VideoCapture(0)

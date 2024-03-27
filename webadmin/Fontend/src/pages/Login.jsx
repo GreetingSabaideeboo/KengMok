@@ -35,7 +35,7 @@ export default function Sing_up() {
   return (
     <>
     <div className="body-login">
-      <div className="topic">LOGIN</div>
+      <div className="logintopic">LOGIN</div>
       <div className="box-dot">
         <span class="dot1"></span>
         <span class="dot2"></span>

@@ -5,7 +5,7 @@ services:
     image: kiosk-client-image
     container_name: kiosk-client-container
     ports:
-      - "8080:8080"
+      - "6970:80"
     depends_on:
       - db
     environment:
@@ -30,7 +30,7 @@ services:
     image: mysql:5.7
     container_name: db-container
     ports:
-      - "6959:3306"
+      - "6959:6959"
     environment:
       MYSQL_DATABASE: 'Greeting'
       MYSQL_USER: 'user'

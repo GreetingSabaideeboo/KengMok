@@ -16,7 +16,7 @@
     </marquee>
 </div>
 <div class="display">
-    <img class="camfeed" src="http://localhost:6970/video_feed" alt="Camera Feed">
+    <img class="camfeed" src="http://192.168.15.227:6970/video_feed" alt="Camera Feed">
     <div class="">
         <div id="latest-events-container">
             <!-- Latest events will be inserted here -->
@@ -29,7 +29,7 @@
             async function fetchLatestEvents() {
                 console.log("active");
                 try {
-                    const response = await fetch('http://localhost:6956/kios');
+                    const response = await fetch('http://192.168.15.227:6956/kios');
                     const data = await response.json();
                     console.log("data is:",data);
                     const container = document.getElementById('latest-events-container');

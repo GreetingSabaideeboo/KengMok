@@ -15,7 +15,7 @@ function Works() {
   useEffect(() => {
     const fetchPeople = async () => {
       try {
-        const response = await axios.get("http://localhost:6956/peopleList");
+        const response = await axios.get("http://192.168.15.227:6956/peopleList");
         setPeople(response.data.peopleList); // สมมติว่า API ส่งค่ากลับมาในรูปแบบนี้
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -8,7 +8,7 @@ function History() {
   const [modal, setModal] = useState(false);
   const [modalImgSrc, setModalImgSrc] = useState('');
   const fetchEvent = () => {
-    axios.get('http://localhost:6956/getAllEvent')
+    axios.get('http://192.168.15.227:6956/getAllEvent')
       .then((response) => {
         setEvents(response.data);
         console.log("data is:", events)// อัปเดต state ด้วยข้อมูลจาก API

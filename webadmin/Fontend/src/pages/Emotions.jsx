@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 function Emotions () {
     let emotions;
     const emotionlist = () => [
-        Axios.get("http://localhost:6956/emotionlist"
+        Axios.get("http://192.168.15.227:6956/emotionlist"
         ).then((Response) => {
             console.log(Response); 
             emotions = Response.data.emotionlist
@@ -76,7 +76,7 @@ function Emotions () {
         if (result.isConfirmed) {
           Axios({
             method: 'post',
-            url: 'http://localhost:6956/deletesound',
+            url: 'http://192.168.15.227:6956/deletesound',
             data: {
               'SoundsID': SoundsID // replace this with your actual condition for deletion
             }

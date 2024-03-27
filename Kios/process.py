@@ -16,10 +16,10 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 tracker=[]
 
 try:
-    url = 'http://localhost:6956/peopleList'
+    url = 'http://192.168.15.227:6956/peopleList'
     people_response = requests.get(url)
     
-    url = 'http://localhost:6956/getPicture'
+    url = 'http://192.168.15.227:6956/getPicture'
     response = requests.get(url)
     
 except Exception as e:
@@ -30,7 +30,7 @@ except Exception as e:
 # def makeSound(name,emo):
 #     print("emotion recive:",emo)
    
-#     url = 'http://localhost:5001/getSound'
+#     url = 'http://192.168.15.227:5001/getSound'
 #     myobj = {'emotion': emo}
 #     response = requests.post(url, json=myobj)
 #     text=""
@@ -60,7 +60,7 @@ engine.setProperty('voice', TH_voice_id)
 def makeSound(name,emo):
     print("emotion recive:",emo)
    
-    url = 'http://localhost:6956/getSound'
+    url = 'http://192.168.15.227:6956/getSound'
     myobj = {'emotion': emo}
     response = requests.post(url, json=myobj)
     text=""
@@ -119,7 +119,7 @@ def saveEvent(UID, gender, age, emotion, environmentEncoded_string, faceEncoded_
     environmentB64_string = environmentEncoded_string.decode() 
     faceB64_string = faceEncoded_string.decode() 
     # print(UID,gender,age,emotion,environmentB64_string,faceB64_string)
-    url = 'http://localhost:6956/savePicKios'
+    url = 'http://192.168.15.227:6956/savePicKios'
     myobj = {'image': environmentB64_string,
                 'face':faceB64_string,
                 'uid':UID,
@@ -273,7 +273,7 @@ while True:
                 
                 
                 
-                # url = 'http://localhost:5001/savePicKios'
+                # url = 'http://192.168.15.227:5001/savePicKios'
                 # myobj = {'image': environmentB64_string,
                 #          'face':faceB64_string}
                 # x = requests.post(url, json = myobj)
@@ -291,13 +291,13 @@ while True:
                 with open("./face.jpg", "rb") as image_file:
                     faceEncoded_string = base64.b64encode(image_file.read())
                 try:
-                    url = 'http://localhost:6956/peopleList'
+                    url = 'http://192.168.15.227:6956/peopleList'
                     people_response = requests.get(url)
 
-                    url = 'http://localhost:6956/getPicture'
+                    url = 'http://192.168.15.227:6956/getPicture'
                     picture = requests.get(url)
                     
-                    url = 'http://localhost:6956/getPicture'
+                    url = 'http://192.168.15.227:6956/getPicture'
                     response = requests.get(url)
                     analyze=DeepFace.analyze(frame,actions=("gender","emotion"))
                     gender=analyze[0]['dominant_gender']

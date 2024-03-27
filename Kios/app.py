@@ -15,7 +15,8 @@ PORT=6970
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 cam = cv2.VideoCapture(0)
-origins = [r'^http://localhost($|:\d+$)']
+# origins = [r'^http://localhost($|:\d+$)']
+origins = [r'^http://192.168.15.227($|:\d+$)']
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')

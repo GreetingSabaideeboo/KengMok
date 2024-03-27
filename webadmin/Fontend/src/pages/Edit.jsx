@@ -119,7 +119,7 @@ const Addcrop = () => {
     try {
       // Example of how you might handle multiple images - adjust according to your backend needs
       
-        await axios.post('http://localhost:6956/add', {
+        await axios.post('http://192.168.15.227:6956/add', {
           image: croppedImages,
           firstname: Firstname,
           lastname: Lastname,

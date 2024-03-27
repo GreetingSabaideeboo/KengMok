@@ -13,7 +13,7 @@ export default function Sing_up() {
   document.body.style.overflow = "hidden";
   
   const requst_login = () => [
-    Axios.post("http://localhost:6956/login", {
+    Axios.post("http://192.168.15.227:6956/login", {
       username: username,
       password: password,
     }).then((Response) => {

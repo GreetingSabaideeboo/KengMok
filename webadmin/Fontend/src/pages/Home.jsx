@@ -15,9 +15,9 @@ const Home = () => {
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        const emotionResponse = await axios('http://localhost:6956/getEventForHome');
+        const emotionResponse = await axios('http://192.168.15.227:6956/getEventForHome');
         processEmotionData(emotionResponse.data);
-        const eventResponse = await axios('http://localhost:6956/getEventMount');
+        const eventResponse = await axios('http://192.168.15.227:6956/getEventMount');
         processEventDistribution(eventResponse.data);
       } catch (error) {
         console.error('Failed to fetch event data:', error);

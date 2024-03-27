@@ -9,7 +9,7 @@ function EditUser() {
     const [user, setUser] = useState({ U_Firstname: '', U_Lastname: '', U_Gender: '', U_Birthday: '' }); // ปรับปรุงให้เก็บข้อมูลเป็น object
     const navigate = useNavigate();
     useEffect(() => {
-        Axios.post("http://localhost:6956/getUser", {
+        Axios.post("http://192.168.15.227:6956/getUser", {
             UID: sessionStorage.getItem("editID")
         })
             .then((response) => {
@@ -27,7 +27,7 @@ function EditUser() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Axios.post('http://localhost:6956/updateUser', {
+        Axios.post('http://192.168.15.227:6956/updateUser', {
             ...user, // This spread operator passes all user fields
             UID: sessionStorage.getItem("editID") // Ensure you're sending the UID to the server
         })
@@ -54,7 +54,7 @@ function EditUser() {
     const deLete = async (UID) => {
         if (confirm("Delete User " + UID + "?") == true) {
           try {
-            const response = await Axios.post('http://localhost:6956/changeStatus', { uid: UID });
+            const response = await Axios.post('http://192.168.15.227:6956/changeStatus', { uid: UID });
             peopleList()
           } catch (error) {
             console.error('Error during axios request:', error);

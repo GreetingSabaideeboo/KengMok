@@ -16,8 +16,8 @@ PORT=6969
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 cam = cv2.VideoCapture(0)
-origins = [r'^http://localhost($|:\d+$)']
-# origins = [r'^http://0.0.0.0($|:\d+$)']
+# origins = [r'^http://localhost($|:\d+$)']
+origins = [r'^http://0.0.0.0($|:\d+$)']
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -25,21 +25,24 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 def camera_stream():
     ret, frame = cam.read()
-    if not ret:
-        raise RuntimeError("Failed to retrieve frame from camera")
-    
-    frame = cv2.flip(frame, 90)
+    frame = cv2.flip(frame, 90) 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    # Perform face detection
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
     try:
-        cv2.imwrite('pic.jpg', frame)
-    except Exception as e:
-        print(f"Error saving image: {e}")
-
+        pass
+        cv2.imwrite('pic.jpg',frame)
+    except Exception as E:
+        # print (E)
+        pass
+    # Draw rectangles around the detected faces
     for (x, y, w, h) in faces:
+        # x+=75
+        # y+=75
+        # w-=100
+        # h-=100
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    
     return cv2.imencode('.jpg', frame)[1].tobytes()
 
 def gen_frame():
@@ -49,12 +52,12 @@ def gen_frame():
             yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') 
         except Exception as e:
-            print(f"Error generating frame: {e}")
-
-@app.get('/video_feed')
-def video_feed():
-    return StreamingResponse(gen_frame(), media_type='multipart/x-mixed-replace; boundary=frame')
-
+            print(f"gen frame error : {e}")
+        try:
+            cv2.imwrite('pic.jpg',frame)
+        except Exception as E:
+            pass
+            # print (E)
         
 
 @app.get('/video_feed')

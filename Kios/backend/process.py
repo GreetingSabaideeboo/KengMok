@@ -106,6 +106,8 @@ while True:
        
         # ret, frame = cap.read()
         frame=cv2.imread("pic.jpg")
+        if(frame is not None):
+            cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         frame = cv2.flip(frame, 90) 
         # frame = cv2.imread("pic.jpg")
         Time=time.time()

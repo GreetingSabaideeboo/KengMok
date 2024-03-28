@@ -9,8 +9,8 @@ from pathlib import Path
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-HOST="localhost"
-# HOST="0.0.0.0"
+# HOST="localhost"
+HOST="0.0.0.0"
 # HOST="db"
 PORT=6969
 templates = Jinja2Templates(directory="dist")

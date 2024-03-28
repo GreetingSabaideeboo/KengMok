@@ -62,7 +62,7 @@ def gen_frame():
 
 @app.get('/video_feed')
 def video_feed():
-    
+
     return StreamingResponse(gen_frame(),
                     media_type='multipart/x-mixed-replace; boundary=frame')
 

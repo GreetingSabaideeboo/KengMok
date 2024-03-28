@@ -20,7 +20,6 @@
 FROM python:3.12-slim
 
 ENV SERVER_IP=192.168.15.227
-# Expose the port
 EXPOSE 6970
 
 # Set environment variables
@@ -28,12 +27,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install required system dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        libgl1 \
-        libglib2.0-0 \
-        libgl1-mesa-glx \  # Add libgl1-mesa-glx for graphics libraries
-
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    libgl1-mesa-glx \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt .
@@ -47,4 +45,5 @@ COPY . .
 
 # Run the application
 CMD ["python", "app.py", "process.py"]
+
 

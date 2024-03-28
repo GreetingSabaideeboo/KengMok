@@ -5,7 +5,17 @@ services:
     image: kiosk-client-image
     container_name: kiosk-client-container
     ports:
-      - "6970:6970"
+      - "6969:6969"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql://user:password@db/Greeting"
+  kiosk-backend:
+    build: ./Kios/backend
+    image: kiosk-backend-image
+    container_name: kiosk-backend-container
+    ports:
+    - "6970:6970"
     depends_on:
       - db
     environment:

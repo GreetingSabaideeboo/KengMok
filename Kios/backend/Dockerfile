@@ -1,26 +1,7 @@
-# FROM python:latest
-
-# # ENV SERVER_IP=192.168.15.227
-
-# WORKDIR /app
-
-# RUN apt-get update && apt-get install -y libgl1-mesa-glx
-
-# COPY requirement.txt ./
-# RUN pip install --no-cache-dir -r requirement.txt
-# COPY ./dist/index.html ./
-# COPY app.py /app/app.py
-# COPY process.py /app/process.py
-# COPY . .
-
-# EXPOSE 6970
-
-# CMD [ "python","app.py","process.py"]
-
 FROM python:3.12-slim
 
 ENV SERVER_IP=192.168.15.227
-EXPOSE 6969
+EXPOSE 6970
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -44,6 +25,4 @@ WORKDIR /app
 COPY . .
 
 # Run the application
-CMD ["python", "app.py"]
-
-
+CMD ["python","process.py"]

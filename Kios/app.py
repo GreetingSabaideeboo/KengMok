@@ -14,7 +14,7 @@ HOST="db"
 PORT=6970
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
-cam = cv2.VideoCapture(-1, cv2.CAP_V4L)
+cam = cv2.VideoCapture(0, cv2.CAP_V4L)
 # origins = [r'^http://localhost($|:\d+$)']
 origins = [r'^http://192.168.15.227($|:\d+$)']
 

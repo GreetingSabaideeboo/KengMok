@@ -19,18 +19,32 @@
 
 FROM python:3.12-slim
 
+ENV SERVER_IP=192.168.15.227
+# Expose the port
 EXPOSE 6970
 
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install pip requirements
+# Install required system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 \
+        libgl1-mesa-glx \  # Add libgl1-mesa-glx for graphics libraries
+
+
+# Install Python dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt \
- && apt-get update && apt-get install -y libgl1 libglib2.0-0
+RUN pip install -r requirements.txt
 
+# Set the working directory
 WORKDIR /app
-COPY . /app
 
-# CMD ["gunicorn", "--bind", "0.0.0.0:6970", "-k", "uvicorn.workers.UvicornWorker", "Kios.app:app"]
-CMD ["python","app.py","process.py"]
+# Copy the application files
+COPY . .
+
+# Run the application
+CMD ["python", "app.py", "process.py"]
+

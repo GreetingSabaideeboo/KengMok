@@ -2,17 +2,14 @@ import cv2
 import time
 from deepface import DeepFace
 import requests
-import axios
 import random
 import base64
 import numpy as np
 from numpy.linalg import norm
 from datetime import datetime
 import pyttsx3
-import subprocess
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-# cap = cv2.VideoCapture(0)
 tracker=[]
 
 try:
@@ -213,50 +210,6 @@ while True:
                     except Exception as e:
                         print(f"Error: {e}")
                 
-                
-                
-                    
-                    
-                
-                
-            
-                                        # print(Ver_result['verified'])?
-                
-                
-                
-                
-                
-                #for loop get user info
-                # Ver_result = DeepFace.verify(ch, face, model_name="VGG-Face", enforce_detection=False)
-                # print(Ver_result)
-                # result=DeepFace.analyze(frame,actions=("gender"))
-                # print(result)
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                # url = 'http://192.168.15.227:5001/savePicKios'
-                # myobj = {'image': environmentB64_string,
-                #          'face':faceB64_string}
-                # x = requests.post(url, json = myobj)
-
-                # print(x.text)
-               
-                # time.sleep(5)
-           
-                # pass
             if len(tracker)==0:
                 print('3')
                 tracker.append({'pic':embedding,'time':Time})

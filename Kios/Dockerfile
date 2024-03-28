@@ -1,49 +1,36 @@
-# FROM python:latest
+# FROM python:3.11.7
 
-# # ENV SERVER_IP=192.168.15.227
+# EXPOSE 6969
+
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     libgl1 \
+#     libglib2.0-0 \
+#     libgl1-mesa-glx \
+#     && rm -rf /var/lib/apt/lists/*
+
+# COPY requirements.txt .
+# RUN pip install -r requirements.txt
 
 # WORKDIR /app
 
-# RUN apt-get update && apt-get install -y libgl1-mesa-glx
+# COPY . /app
 
-# COPY requirement.txt ./
-# RUN pip install --no-cache-dir -r requirement.txt
-# COPY ./dist/index.html ./
-# COPY app.py /app/app.py
-# COPY process.py /app/process.py
-# COPY . .
+# CMD ["python", "app.py"]
 
-# EXPOSE 6970
 
-# CMD [ "python","app.py","process.py"]
+FROM python:3.11.7
 
-FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-ENV SERVER_IP=192.168.15.227
-EXPOSE 6969
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Install required system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1 \
-    libglib2.0-0 \
-    libgl1-mesa-glx \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-# Set the working directory
 WORKDIR /app
 
-# Copy the application files
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-# Run the application
-CMD ["python", "app.py"]
+EXPOSE 6969
 
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "6969"]
 

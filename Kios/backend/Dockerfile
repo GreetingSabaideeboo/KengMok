@@ -1,28 +1,27 @@
-FROM python:3.12-slim
+FROM python:3.11.7
 
-ENV SERVER_IP=192.168.15.227
 EXPOSE 6970
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Install required system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1 \
-    libglib2.0-0 \
+RUN apt-get update && apt-get install -y \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
     libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-# Set the working directory
+RUN pip install deepface
+
+RUN pip install requests pyttsx3
+
 WORKDIR /app
 
-# Copy the application files
-COPY . .
+COPY . /app
 
 # Run the application
 CMD ["python","process.py"]
+
+
+

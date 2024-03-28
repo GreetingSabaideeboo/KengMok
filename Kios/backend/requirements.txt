@@ -1,0 +1,15 @@
+deepface==0.0.80
+numpy==1.26.2
+mysql-connector-python
+opencv-python-headless
+starlette
+pathlib
+jinja2
+opencv-python
+python-dotenv
+requests
+datetime
+pyttsx3
+fastapi[all]==0.109.0
+uvicorn[standard]==0.27.0
+gunicorn==21.2.0

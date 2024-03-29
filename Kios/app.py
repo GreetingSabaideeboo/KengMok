@@ -16,7 +16,7 @@ HOST="0.0.0.0"
 PORT=6969
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
-cam = cv2.VideoCapture(0)
+# cam = cv2.VideoCapture(0)
 # origins = [r'^http://localhost($|:\d+$)']
 origins = [r'^http://0.0.0.0($|:\d+$)']
 
@@ -25,7 +25,8 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 
 def camera_stream():
-    ret, frame = cam.read()
+    # ret, frame = cam.read()
+    cam=cv2.imread('/Kios/pic.jpg')
     frame = cv2.flip(frame, 90) 
     gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
 

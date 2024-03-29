@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  zoom: 80%;
+}
+
 body {
   padding-bottom: 100px !important;
   height: auto;

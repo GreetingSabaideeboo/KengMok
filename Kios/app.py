@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import cv2
+from cv2 import cvtColor
 import mysql.connector
 import os
 from starlette.staticfiles import StaticFiles
@@ -26,7 +27,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 def camera_stream():
     ret, frame = cam.read()
     frame = cv2.flip(frame, 90) 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))

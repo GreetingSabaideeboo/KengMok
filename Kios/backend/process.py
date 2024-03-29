@@ -106,7 +106,7 @@ while True:
     try:
        
         # ret, frame = cap.read()
-        frame=cv2.imread("pic.jpg")
+        frame=cv2.imread("/Kios/pic.jpg")
         if(frame is not None):
             cvtColor(frame, cv2.COLOR_BGR2HSV)
         frame = cv2.flip(frame, 90) 

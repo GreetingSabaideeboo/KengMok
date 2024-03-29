@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+html {
+    zoom: 80%;
+}
+
 .header {
     background: #ECD7A0;
     

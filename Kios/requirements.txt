@@ -1,7 +1,6 @@
 deepface==0.0.80
 numpy==1.26.2
 mysql-connector-python
-opencv-python-headless
 starlette
 pathlib
 jinja2

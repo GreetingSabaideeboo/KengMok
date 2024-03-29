@@ -32,6 +32,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY ../TTS_THAI.reg .
+
 COPY . .
 
 EXPOSE 6969

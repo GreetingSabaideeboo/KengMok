@@ -27,10 +27,10 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 def camera_stream():
     ret, frame = cam.read()
     frame = cv2.flip(frame, 90) 
-    # gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Perform face detection
-    faces = face_cascade.detectMultiScale(frame, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
     try:
         pass
         cv2.imwrite('pic.jpg',frame)

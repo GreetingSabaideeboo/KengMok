@@ -10,8 +10,8 @@ services:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
-    devices:
-      - /dev/video0:/dev/video0
+    # devices:
+    #   - /dev/video0:/dev/video0
 
   kiosk-backend:
     build: ./Kios/backend
@@ -23,8 +23,8 @@ services:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
-    devices:
-      - /dev/video0:/dev/video0
+    # devices:
+    #   - /dev/video0:/dev/video0
 
   web-backend:
     build: ./webadmin/Backend

@@ -7,7 +7,10 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libgl1-mesa-glx \
+    espeak \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get install espeak
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt

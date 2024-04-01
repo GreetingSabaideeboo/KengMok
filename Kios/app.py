@@ -25,6 +25,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 
 def camera_stream():
+    global cam
     ret, frame = cam.read()
     cam=cv2.imread('/Kios/pic.jpg')
     frame = cv2.flip(frame, 90) 

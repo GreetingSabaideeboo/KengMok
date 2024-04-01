@@ -11,12 +11,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 # HOST="localhost"
-HOST="0.0.0.0"
-# HOST="db"
+# HOST="0.0.0.0"
+HOST="db"
 PORT=6969
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
-# cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(index=0)
 # origins = [r'^http://localhost($|:\d+$)']
 origins = [r'^http://0.0.0.0($|:\d+$)']
 

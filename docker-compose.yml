@@ -10,17 +10,22 @@ services:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
+    devices:
+      - /dev/video0:/dev/video0
+
   kiosk-backend:
     build: ./Kios/backend
     image: kiosk-backend-image
     container_name: kiosk-backend-container
     ports:
-    - "6970:6970"
+      - "6970:6970"
     depends_on:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
-    
+    devices:
+      - /dev/video0:/dev/video0
+
   web-backend:
     build: ./webadmin/Backend
     image: server-image
@@ -31,12 +36,14 @@ services:
       - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
+  
   web-frontend:
     build: ./webadmin/Fontend
     image: client-image
     container_name: client-container
     ports:
       - "6958:80"
+  
   db:
     image: mysql:5.7
     container_name: db-container
@@ -49,6 +56,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
     volumes:
       - db-data:/var/lib/mysql
+  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-container
@@ -60,5 +68,6 @@ services:
       PMA_PASSWORD: password
     depends_on:
       - db
+
 volumes:
   db-data:

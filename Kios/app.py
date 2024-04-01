@@ -69,7 +69,7 @@ def video_feed():
                     media_type='multipart/x-mixed-replace; boundary=frame')
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-@app.mount("/assets", StaticFiles(directory=Path(os.path.join(script_dir,"dist/assets")), html=True), name="assets")
+app.mount("/assets", StaticFiles(directory=Path(os.path.join(script_dir,"dist/assets")), html=True), name="assets")
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     # events = get_latest_events()

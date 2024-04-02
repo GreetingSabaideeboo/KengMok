@@ -28,7 +28,7 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 def camera_stream():
     global cam
     ret, frame = cam.read()
-
+    frame = cv2.imread('../pic.jpg')
     if cam is None:
         frame = cv2.imread('../pic.jpg')
     cam.isOpened()
@@ -44,7 +44,6 @@ def camera_stream():
         pass
     # Draw rectangles around the detected faces
     for (x, y, w, h) in faces:
-        
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
     return cv2.imencode('.jpg', frame)[1].tobytes()
 

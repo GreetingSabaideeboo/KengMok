@@ -10,9 +10,12 @@ services:
     #   - db
     environment:
       DATABASE_URL: "mysql://user:password@db/Greeting"
-    privileged: true
-    devices:
+    volumes:
       - /dev/video0:/dev/video0
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    command: bash -c "nvidia-smi && python -u app.py"
+    privileged: true
+    runtime: nvidia
     
 
   kiosk-backend:

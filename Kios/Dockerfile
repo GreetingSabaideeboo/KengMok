@@ -25,6 +25,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
+    python3-opencv \
     && rm -rf /var/lib/apt/lists/*
 
 

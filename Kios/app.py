@@ -10,16 +10,16 @@ from pathlib import Path
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-# HOST="localhost"
-HOST="0.0.0.0"
+HOST="localhost"
+# HOST="0.0.0.0"
 # HOST="db"
 PORT=6969
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 camera_id = "/dev/video0"
-cam = cv2.VideoCapture(camera_id)
-# origins = [r'^http://localhost($|:\d+$)']
-origins = [r'^http://0.0.0.0($|:\d+$)']
+cam = cv2.VideoCapture(0)
+origins = [r'^http://localhost($|:\d+$)']
+# origins = [r'^http://0.0.0.0($|:\d+$)']
 
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -28,9 +28,9 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 def camera_stream():
     global cam
     ret, frame = cam.read()
-    frame = cv2.imread('../pic.jpg')
-    if cam is None:
-        frame = cv2.imread('../pic.jpg')
+    # frame = cv2.imread('../pic.jpg')
+    # if cam is None:
+    #     frame = cv2.imread('../pic.jpg')
     frame = cv2.flip(frame, 90) 
     gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
 

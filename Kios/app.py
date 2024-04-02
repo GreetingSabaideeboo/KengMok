@@ -17,7 +17,7 @@ PORT=6969
 templates = Jinja2Templates(directory="dist")
 app = FastAPI()
 camera_id = "/dev/video0"
-cam = cv2.VideoCapture(camera_id,cv2.CAP_DSHOW)
+cam = cv2.VideoCapture(camera_id)
 # origins = [r'^http://localhost($|:\d+$)']
 origins = [r'^http://0.0.0.0($|:\d+$)']
 
@@ -31,7 +31,6 @@ def camera_stream():
     frame = cv2.imread('../pic.jpg')
     if cam is None:
         frame = cv2.imread('../pic.jpg')
-    cam.isOpened()
     frame = cv2.flip(frame, 90) 
     gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
 

@@ -28,8 +28,9 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 def camera_stream():
     global cam
     ret, frame = cam.read()
+
     if cam is None:
-        cam = cv2.imread('/Kios/pic.jpg')
+        frame = cv2.imread('../pic.jpg')
     cam.isOpened()
     frame = cv2.flip(frame, 90) 
     gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -37,17 +38,13 @@ def camera_stream():
     # Perform face detection
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
     try:
-        pass
         cv2.imwrite('pic.jpg',frame)
     except Exception as E:
         # print (E)
         pass
     # Draw rectangles around the detected faces
     for (x, y, w, h) in faces:
-        # x+=75
-        # y+=75
-        # w-=100
-        # h-=100
+        
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
     return cv2.imencode('.jpg', frame)[1].tobytes()
 

@@ -1,5 +1,11 @@
 version: '3.8'
 services:
+  web:
+    build: ./test
+    image: web-html-image
+    container_name: web-html-container
+    ports:
+      - "80:80"
   kiosk-frontend:
     build: ./Kios
     image: kiosk-client-image

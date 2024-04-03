@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Continuous Capture Demo</title>
+</head>
+<body>
+    <h2>Continuous Capture from Camera</h2>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const video = document.querySelector('#video');
+        const canvas = document.querySelector('#canvas');
+        const context = canvas.getContext('2d');
+
+        async function captureImage() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg');
+            
+            try {
+                const response = await fetch('/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image: imageData }),
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            setTimeout(captureImage, 100); // Capture every 100 ms
+        }
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    setTimeout(captureImage, 500); // Start capturing after a short delay
+                })
+                .catch(function(error) {
+                    console.log("Cannot access the camera!");
+                });
+        }
+    });
+    </script>
+</body>
+</html>

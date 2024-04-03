@@ -1,105 +1,95 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/kisok.css">
 </head>
-
 <body>
 
-    <div class="top-box">
-        <marquee class="font_btn text-light" direction="left">
-            <div class="text-slide">
-                <div class="top-text">Hello, I hope you have a nice day!</div>
-                <div class="top-text">Study Hard, Play Harder</div>
-                <div class="top-text">The advice is Don't Die!</div>
-            </div>
-        </marquee>
-    </div>
-    <div class="display">
-        <img class="camfeed" src="http://0.0.0.0:6969/video_feed" alt="Camera Feed">
-        <div class="">
-            <div id="latest-events-container">
-                <!-- Latest events will be inserted here -->
-            </div>
+<div class="top-box">
+    <marquee class="font_btn text-light" direction="left">
+        <div class="text-slide">
+            <div class="top-text">Hello, I hope you have a nice day!</div>
+            <div class="top-text">Study Hard, Play Harder</div>
+            <div class="top-text">The advice is Don't Die!</div>
         </div>
-
+    </marquee>
+</div>
+<div class="display">
+    <img class="camfeed" src="http://0.0.0.0/video_feed" alt="Camera Feed">
+    <div class="">
+        <div id="latest-events-container">
+            <!-- Latest events will be inserted here -->
+        </div>
     </div>
+
+</div>
     <script>
-        require('dotenv').config();
-
-        const CAMERA_FEED_URL = process.env.CAMERA_FEED_URL;
-        const EVENTS_API_URL = process.env.EVENTS_API_URL;
-
-        // Now, use these variables in your application
-
         document.addEventListener('DOMContentLoaded', (event) => {
             async function fetchLatestEvents() {
                 console.log("active");
                 try {
                     const response = await fetch('http://192.168.15.227:6956/kios');
                     const data = await response.json();
-                    console.log("data is:", data);
+                    console.log("data is:",data);
                     const container = document.getElementById('latest-events-container');
                     container.innerHTML = ''; // Clear previous content
                     data.forEach(event => {
-                        p = document.createElement('h1')
-                        if (event.Emotion == "neutral") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "🙂"
+                        p=document.createElement('h1')
+                        if(event.Emotion=="neutral"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🙂"
                         }
-                        else if (event.Emotion == "happy") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "😃"
+                        else if(event.Emotion=="happy"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😃"
                         }
-                        else if (event.Emotion == "sad") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "🙁"
+                        else if(event.Emotion=="sad"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🙁"
                         }
-                        else if (event.Emotion == "angry") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "😡"
+                        else if(event.Emotion=="angry"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😡"
                         }
-                        else if (event.Emotion == "fear") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "😖"
+                        else if(event.Emotion=="fear"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😖"
                         }
-                        else if (event.Emotion == "surprice") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "😲"
+                        else if(event.Emotion=="surprice"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"😲"
                         }
-                        else if (event.Emotion == "disgust") {
-                            p.innerHTML = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}` + " " + "🤢"
+                        else if(event.Emotion=="disgust"){
+                            p.innerHTML=`${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`+" "+"🤢"
                         }
-
-
-
-                        img = document.createElement('img')
+                        
+    
+                        
+                        img=document.createElement('img')
                         img.classList.add("imglist")
                         img.src = `data:image/jpeg;base64,${event.FacePicture}`;
                         const divBox = document.createElement('div');
-
+                        
                         divBox.classList.add('box-text');
-
+    
                         const divText = document.createElement('div');
-
+                        
                         divText.classList.add('text');
-
+                        
                         //divText.textContent = `${event.EID}: ${event.U_Firstname} ${event.U_Lastname}`; // Adjust this based on your event structure
-
+                        
                         divBox.appendChild(img);
                         divBox.appendChild(p);
-
-
+                        
+                        
                         container.appendChild(divBox);
                     });
                 } catch (error) {
                     console.error('Error fetching latest events:', error);
                 }
             }
-
+    
             // Fetch latest events every 5 seconds (adjust as needed)
             setInterval(fetchLatestEvents, 1000);
-
+    
             // Initial fetch on page load
             fetchLatestEvents();
         });
     </script>
 </body>
-
 </html>

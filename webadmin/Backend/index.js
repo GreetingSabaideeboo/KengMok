@@ -1,38 +1,36 @@
+require('dotenv').config(); // This line is important to load the .env file at the beginning
+
 const express = require('express');
-const app = express();
 const mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const bodyParser = require('body-parser');
-const mime = require('mime-types');
-
-// import * as express from 'express';
 const jwt = require('jsonwebtoken');
-const { error } = require('console');
-const secret = 'AI-Project';
+
+const app = express();
 
 app.use(cors());
-// app.use(express.json());
 app.use(express.json({ limit: '500mb' }));
 
+// Use environment variables from the .env file
 const db = mysql.createConnection({
-    // user: "root", //local
-    user: "user",
-    // host: "localhost", //local
-    host: "db",
-    // password: "",  //local
-    password: "password",
-    database: "Greeting"
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
-db.connect((err) => {
+// Connect to the database
+db.connect(err => {
     if (err) {
         console.error('Error connecting to the database:', err);
         process.exit(1); // Exit the application if database connection fails
     }
     console.log('Connected to the database successfully');
 });
+
+// JWT Secret from the .env file
+const secret = process.env.JWT_SECRET;
 
 app.get('/', (req, res) => {
     res.send("still");
@@ -380,7 +378,7 @@ db.query(query, (error, results) => {
 });
 })
 
-const port = 6956;
+const port = process.env.SERVER_PORT || 3000; // Default to 3000 if SERVER_PORT is not defined
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

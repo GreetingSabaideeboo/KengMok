@@ -1,88 +1,48 @@
 from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
-import cv2
-from cv2 import cvtColor
-import mysql.connector
-import os
-from starlette.staticfiles import StaticFiles
-from pathlib import Path
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.config import Config
+import cv2
 
-# HOST="localhost"
-HOST="0.0.0.0"
-# HOST="db"
-PORT=6969
-templates = Jinja2Templates(directory="dist")
+# Load environment variables
+config = Config(".env")
+CAMERA_FEED_URL = config("CAMERA_FEED_URL", cast=str)
+EVENTS_API_URL = config("EVENTS_API_URL", cast=str)
+
 app = FastAPI()
-camera_id = "/dev/video0"
-# cam = cv2.VideoCapture(camera_id,cv2.CAP_DSHOW)
+
+# Serve static files
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
+# Jinja2 Templates for HTML rendering
+templates = Jinja2Templates(directory="dist")
+
+# OpenCV setup for camera feed
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 cam = cv2.VideoCapture(0)
 
-# origins = [r'^http://localhost($|:\d+$)']
-origins = [r'^http://0.0.0.0($|:\d+$)']
-
-
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
-
-def camera_stream():
-    global cam
-    ret, frame = cam.read()
-    frame = cv2.imread('./pic.jpg')
-    if cam is None:
-        frame = cv2.imread('./pic.jpg')
-    cam.isOpened()
-    frame = cv2.flip(frame, 90) 
-    gray = cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    # Perform face detection
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
-    try:
-        cv2.imwrite('pic.jpg',frame)
-    except Exception as E:
-        # print (E)
-        pass
-    # Draw rectangles around the detected faces
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    return cv2.imencode('.jpg', frame)[1].tobytes()
-
-def gen_frame():
+def gen_camera_stream():
     while True:
-        try:
-            frame = camera_stream()
-            yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') 
-        except Exception as e:
-            print(f"gen frame error : {e}")
-        try:
-            cv2.imwrite('pic.jpg',frame)
-        except Exception as E:
-            pass
-            # print (E)
-        
+        ret, frame = cam.read()
+        if not ret:
+            break  # Failed to capture image
+        frame = cv2.flip(frame, 1)  # Mirror the image
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=4)
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+        _, buffer = cv2.imencode('.jpg', frame)
+        yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
 
-@app.get('/video_feed')
+@app.get("/video_feed")
 def video_feed():
+    return StreamingResponse(gen_camera_stream(), media_type='multipart/x-mixed-replace; boundary=frame')
 
-    return StreamingResponse(gen_frame(),
-                    media_type='multipart/x-mixed-replace; boundary=frame')
-
-script_dir = os.path.dirname(os.path.realpath(__file__))
-app.mount("/assets", StaticFiles(directory=Path(os.path.join(script_dir,"dist/assets")), html=True), name="assets")
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    # events = get_latest_events()
-    
-    return templates.TemplateResponse("index.html", {"request": request})
-
+async def get_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request, "CAMERA_FEED_URL": CAMERA_FEED_URL, "EVENTS_API_URL": EVENTS_API_URL})
 
 if __name__ == "__main__":
     import uvicorn
-    try:
-        uvicorn.run(app, host=HOST, port=PORT, log_level="info")
-    except Exception as e:
-        print(f"app runtime error : {e}")
-        raise SystemExit
+    uvicorn.run(app, host=config("HOST", cast=str, default="0.0.0.0"), port=config("PORT", cast=int, default=8000))

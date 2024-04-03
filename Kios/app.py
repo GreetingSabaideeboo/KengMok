@@ -9,8 +9,6 @@ import cv2
 import numpy as np
 import base64
 
-config = Config(".env")
-
 app = FastAPI()
 
 app.add_middleware(
@@ -20,34 +18,40 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 templates = Jinja2Templates(directory="dist")
 
-latest_frame = None
+# global latest_frame
 
 class ImageData(BaseModel):
     image: str
 
 @app.post("/capture")
 async def capture_image(data: ImageData):
-    global latest_frame
-    print(data.image)
-    img_data = base64.b64decode(data.image)
-    nparr = np.frombuffer(img_data, np.uint8)
-    latest_frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     
-    return {"message": "Image received"}
+    # ถอดรหัสข้อมูลภาพจาก base64 กลับเป็น bytes
+    img_data = base64.b64decode(data.image)
+    # แปลง bytes กลับเป็น numpy array
+    nparr = np.frombuffer(img_data, np.uint8)
+    # แปลง numpy array เป็นภาพ
+    latest_frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    print("Picture:",latest_frame)
+    # บันทึกภาพลงในไฟล์ pic.jpg บนเครื่อง โดยเขียนทับไฟล์เดิม
+    cv2.imwrite('pic.jpg', latest_frame)
+    
+    return {"message": "Image received and saved as pic.jpg"}
+
 
 def gen_camera_stream():
-    global latest_frame
+    
     while True:
-        if latest_frame is not None:
-            frame = latest_frame
-            _, buffer = cv2.imencode('.jpg', frame)
-            yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-        else:
-            yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + b'\r\n')
+        # # print("Picture:",latest_frame)
+        # if latest_frame is not None:
+        frame=cv2.imread('../pic.jpg')
+        _, buffer = cv2.imencode('.jpg', frame)
+        yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+        # else:
+        #     yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + b'\r\n')
 
 @app.get("/video_feed")
 def video_feed():

@@ -117,8 +117,8 @@ while True:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(100, 100))
         # print(faces)
-        cv2.imwrite('frame.jpg',frame)
-        with open("./frame.jpg", "rb") as image_file:
+        cv2.imwrite('../frame.jpg',frame)
+        with open("../frame.jpg", "rb") as image_file:
             environmentEncoded_string = base64.b64encode(image_file.read())
             
         for (x, y, w, h) in faces:
@@ -144,8 +144,8 @@ while True:
                     print('2')
                     tracker.append({'pic':embedding,'time':Time})
                     
-                    cv2.imwrite('face.jpg',face)
-                    with open("./face.jpg", "rb") as image_file:
+                    cv2.imwrite('../face.jpg',face)
+                    with open("../frame.jpg", "rb") as image_file:
                         faceEncoded_string = base64.b64encode(image_file.read())
                     try:
                         
@@ -217,8 +217,8 @@ while True:
                 print('3')
                 tracker.append({'pic':embedding,'time':Time})
                     
-                cv2.imwrite('face.jpg',face)
-                with open("./face.jpg", "rb") as image_file:
+                cv2.imwrite('../face.jpg',face)
+                with open("../face.jpg", "rb") as image_file:
                     faceEncoded_string = base64.b64encode(image_file.read())
                 try:
                     url = 'http://192.168.15.227:6956/peopleList'
